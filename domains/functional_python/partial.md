@@ -1,5 +1,12 @@
 # functools.partial
 
+---
+**Path:** [Functional Python](../../roadmaps/functional_python_path.md) — Step 7 of 8  
+**Prev:** [Decorators](decorators.md) · **Next:** [functools.lru_cache](lru_cache.md)  
+**Code Reading:** [M2 — partial vs late binding](../../code_reading/medium.md)
+
+---
+
 ## Metadata
 
 | Field | Value |

@@ -1,5 +1,13 @@
 # Higher-Order Functions
 
+---
+**Path:** [Functional Python](../../roadmaps/functional_python_path.md) — Step 3 of 8  
+**Prev:** [Lambda Functions](lambda_functions.md) · **Next:** [Closures](closures.md)  
+**Drill:** [drills/lambdas.py](../../drills/lambdas.py) — Exercises 2 and 4  
+**Code Reading:** [M2 — partial vs late binding](../../code_reading/medium.md)
+
+---
+
 ## Metadata
 
 | Field | Value |

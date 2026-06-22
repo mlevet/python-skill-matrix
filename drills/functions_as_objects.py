@@ -1,7 +1,7 @@
 """
 Drill: Functions as First-Class Objects
 Domain: functional_python
-Linked topic: domains/functional_python/first_class_functions.md
+Linked topic: domains/functional_python/functions_as_objects.md
 
 Core idea: in Python, functions are objects. They can be stored in variables,
 passed as arguments, returned from other functions, and stored in data structures.

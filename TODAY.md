@@ -1,45 +1,56 @@
-# Today's Session
+# Today's Session — Lambda Functions
 
 **Date:** 2026-06-22  
-**Estimated time:** 30 minutes  
-**Focus:** Closures + Late Binding (both Stale, both High frequency)
-
-Update this file after each session. Tomorrow's focus: MRO.
-
----
-
-## Step 1 — Read the topic (5 min)
-
-→ [Closures](domains/functional_python/closures.md)
-
-After reading: close the file. Explain closures aloud in 30 seconds
-without looking at notes. If you can't, mastery is lower than you
-think.
+**Time:** ~30 minutes  
+**Topic:** Lambda Functions (mastery 6/10, Medium freshness)  
+**Goal:** Lock in the late-binding trap and the sort-key pattern.
 
 ---
 
-## Step 2 — Code reading (10 min)
+## Step 1 — Quick review (5 min)
 
-Predict each output before revealing the answer.
+Glance at [Functions as Objects](domains/functional_python/functions_as_objects.md).
+Read only the Mental model section. Close the file.
 
-→ [M1 — Classic late binding closure](code_reading/medium.md)  
-→ [M2 — Late binding with functools.partial](code_reading/medium.md)  
-→ [H7 — Compound closure + mutable default](code_reading/hard.md)
-
----
-
-## Step 3 — Drill (10 min)
-
-→ [drills/closures.py](drills/closures.py)
+Say aloud: "A function is an object. Assigning it to a new variable
+creates a second reference, not a copy."
 
 ---
 
-## Step 4 — Related topic (5 min)
+## Step 2 — Read the topic (5 min)
 
-→ [Late Binding](domains/functional_python/late_binding.md)
+→ [Lambda Functions](domains/functional_python/lambda_functions.md)
 
-Closures and late binding are the same trap from two angles. Read
-the mental model and the Fix section.
+After reading: close the file. Explain what a lambda is, what it
+cannot do, and what the late-binding trap is — in 30 seconds, aloud.
+
+---
+
+## Step 3 — Code reading (5 min)
+
+Before opening the answer, write your prediction on paper.
+
+→ [M1 — Classic late binding closure](code_reading/medium.md)
+
+Predicted output: `_______`
+
+---
+
+## Step 4 — Drills (10 min)
+
+Open [drills/lambdas.py](drills/lambdas.py). Work through these:
+
+**Exercise 3 — Late binding trap**
+Predict the output of `broken`, verify, then predict `fixed`.
+This is the most commonly asked lambda question in interviews.
+
+**Exercise 7 — Multi-key sort**
+Predict `sorted(people, key=lambda p: (p[1], p[0]))`.
+Sorting with a lambda key is a standard interview task.
+
+**Exercise 8 — Lambda vs def**
+Predict `square_lambda.__name__`. This is a subtle `__name__`
+trap that appears in logging and debugging questions.
 
 ---
 
@@ -47,16 +58,17 @@ the mental model and the Fix section.
 
 In [matrix/skill_matrix.md](matrix/skill_matrix.md):
 
-- Set Closures: Freshness → Fresh, Last Reviewed → today
-- Adjust Mastery up or down based on how it went
-- Recompute Priority if Mastery changed
+- Lambda Functions: set Freshness → Fresh, Last Reviewed → 2026-06-22
+- Adjust Mastery: was 6/10. Did the late-binding trap feel solid?
+  If yes → 7. If still uncertain → keep at 6.
 
-Log any blanks or surprises in [hall_of_pain.md](hall_of_pain.md).
+If anything surprised you, add an entry to
+[hall_of_pain.md](hall_of_pain.md).
 
 ---
 
 ## Next session
 
-→ [MRO](domains/oop/mro.md) — priority 36, 4/10, Stale  
-→ [Drill](drills/oop_internals.py)  
-→ [Code Reading M5](code_reading/medium.md)
+→ [Closures](domains/functional_python/closures.md)  
+→ [Drill](drills/closures.py): Exercises 1, 2, 3  
+→ [Code Reading H7](code_reading/hard.md)

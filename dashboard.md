@@ -1,10 +1,10 @@
 # Python Skill Matrix — Command Center
 
-**Coverage:** 12% | **Freshness:** 57% | **Interview Readiness:** 18%  
+**Topics documented:** 29 · **Topics assessed:** 7 · **Hall of Pain:** 1 open entry  
 *Last updated: 2026-06-22*
 
-→ **[START_HERE.md](START_HERE.md)** — New to this repo? Start here.  
-→ **[TODAY.md](TODAY.md)** — Today's session is ready. Open and start.  
+→ **[START_HERE.md](START_HERE.md)** — New? Start here.  
+→ **[TODAY.md](TODAY.md)** — Lambda Functions session ready.  
 → **[hall_of_pain.md](hall_of_pain.md)** — 1 unresolved entry
 
 ---

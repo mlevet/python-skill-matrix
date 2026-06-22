@@ -1,5 +1,12 @@
 # functools.lru_cache
 
+---
+**Path:** [Functional Python](../../roadmaps/functional_python_path.md) — Step 8 of 8  
+**Prev:** [functools.partial](partial.md)  
+**Drill:** [drills/decorators.py](../../drills/decorators.py)
+
+---
+
 ## Metadata
 
 | Field | Value |

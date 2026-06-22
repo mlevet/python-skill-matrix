@@ -1,60 +1,51 @@
 # Python Skill Matrix Dashboard
 
-## Global Status
+**Coverage:** 12% — 7 of 57 topics reviewed  
+**Freshness:** 57% — 4 of 7 studied topics are current  
+**Interview Readiness:** 18% — 5 of 27 core topics at mastery ≥ 5/10  
 
-| Metric | Value |
-|---|---|
-| Coverage | 0 / 55 topics reviewed |
-| Freshness | N/A — no topics reviewed yet |
-| Interview Readiness | 0 / 21 high-freq topics at mastery ≥ 8/10 |
-
-> Update after each session. Mastery = confidence (0–5) × 2. Freshness: Fresh < 7 days, Medium 7–21, Stale > 21.
+*Last updated: 2026-06-22*
 
 ---
 
-## Top Review Priorities
+## Review Queue
 
-> Pulled from [matrix/review_queue.md](matrix/review_queue.md). Update mastery and freshness after each session.
+Ordered by priority (`freq_weight × (10 − mastery) × freshness_weight`). Do item 1 first.
 
-| Priority | Topic | Domain | Mastery | Freshness | Interview Frequency |
-|---|---|---|---|---|---|
-| 1 | Closures & late binding | Functional Python | 0/10 | Never | High |
-| 2 | Lambdas | Functional Python | 0/10 | Never | High |
-| 3 | Decorators | Functional Python | 0/10 | Never | High |
-| 4 | Functions as first-class objects | Functional Python | 0/10 | Never | High |
-| 5 | Dunder / magic methods | OOP | 0/10 | Never | High |
-| 6 | Inheritance & MRO | OOP | 0/10 | Never | High |
-| 7 | LEGB scoping rules | Python Internals | 0/10 | Never | High |
-| 8 | Python data model | Python Internals | 0/10 | Never | High |
-| 9 | `is` vs `==` | Basics | 0/10 | Never | High |
-| 10 | Generators & `yield` | Advanced Syntax | 0/10 | Never | High |
+1. Generators & `yield` — unreviewed, Very High frequency
+2. Closures — 5/10, Stale (priority 45)
+3. MRO — 4/10, Stale (priority 36)
+4. `__call__` — 4/10, Stale (priority 36)
+5. Default mutable arguments — unreviewed, High frequency
+6. Context managers — unreviewed, High frequency
+7. Decorators — 6/10, Medium (priority 24)
+8. `functools.partial` — unreviewed, Medium frequency
+
+Full details: [matrix/skill_matrix.md](matrix/skill_matrix.md)
 
 ---
 
 ## Interview Hot Topics
 
-- Lambda functions
-- Functions as objects
-- Closures
-- Decorators
-- Mutability traps
-- Iterators and generators
-- MRO
-- `__call__`
-- Rare function signatures
-- Code-reading puzzles
+**Very High** — Lambdas · Closures · Decorators · Mutability · Generators  
+**High** — MRO · `__call__` · Context managers · `functools`
+
+Full ranking: [matrix/interview_frequency.md](matrix/interview_frequency.md)
 
 ---
 
-## Recently Discovered Interview Topics
+## Recently Discovered
 
-See [interview_log/unexpected_topics.md](interview_log/unexpected_topics.md).
+From [interview_log/unexpected_topics.md](interview_log/unexpected_topics.md):
+
+- Lambda late binding in loops — surprised by behavior in code-reading question
 
 ---
 
-## Today's Suggested Routine
+## Today's Routine
 
-1. Review the first item in [matrix/review_queue.md](matrix/review_queue.md)
-2. Answer 3 code-reading questions from [code_reading/](code_reading/)
-3. Do 1 small coding drill from [drills/](drills/)
+1. Pick item 1 from Review Queue above
+2. Predict output of 3 puzzles from [code_reading/](code_reading/)
+3. Explain the topic aloud for 30 seconds without notes
 4. Update mastery and freshness in [matrix/skill_matrix.md](matrix/skill_matrix.md)
+5. Log any surprises or blanks in [hall_of_pain.md](hall_of_pain.md)

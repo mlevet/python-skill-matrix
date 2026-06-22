@@ -1,11 +1,27 @@
 # Python Skill Matrix — Command Center
 
-**Topics documented:** 29 · **Topics assessed:** 7 · **Hall of Pain:** 1 open entry  
+**Topics documented:** 29 · **Topics assessed:** 7 · **Hall of Pain:** 1 open entry
+**Assessment Status:** Not Started
 *Last updated: 2026-06-22*
 
-→ **[START_HERE.md](START_HERE.md)** — New? Start here.  
-→ **[TODAY.md](TODAY.md)** — Lambda Functions session ready.  
+→ **[START_HERE.md](START_HERE.md)** — New? Start here.
+→ **[baseline_assessment/README.md](baseline_assessment/README.md)** — Run Day 0 Readiness Audit first.
+→ **[TODAY.md](TODAY.md)** — Lambda Functions session ready.
 → **[hall_of_pain.md](hall_of_pain.md)** — 1 unresolved entry
+
+---
+
+## Interview Mode
+
+| | |
+|---|---|
+| **Interview date** | 2026-07-07 |
+| **Days remaining** | 15 *(update daily)* |
+| **Preparation status** | Baseline assessment not started |
+
+→ **[matrix/interview_mode.md](matrix/interview_mode.md)** — Top 10 review topics · Top 5 high-risk gaps · 15-day plan
+
+**Top 3 right now:** Generators & `yield` · Late binding · Comprehensions
 
 ---
 

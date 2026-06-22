@@ -33,24 +33,24 @@ Do not open `TODAY.md`. Do not open `dashboard.md`. Start here.
 
 You are in **Phase 1 — Goal Selection**.
 
-What are you trying to achieve right now?
+→ **[goals/README.md](goals/README.md)** — descriptions and a decision tree
 
-**Technical Interview** — preparing for a specific upcoming interview.
-→ Set `goal: technical_interview` in [state.md](state.md).
-→ Fill in `date`, `target_role`, `target_seniority`.
-→ Open [dashboard.md](dashboard.md).
+Short version:
+
+**Interview Campaign** — active job search, multiple interviews expected.
+→ Set `active_goal: interview_campaign` in [state.md](state.md).
+
+**Single Interview Preparation** — one specific upcoming interview.
+→ Set `active_goal: single_interview_prep` in [state.md](state.md).
 
 **Long-Term Mastery** — no deadline, deepen Python across all domains.
-→ Set `goal: long_term_mastery` in [state.md](state.md).
-→ Open [matrix/review_queue.md](matrix/review_queue.md).
+→ Set `active_goal: long_term_mastery` in [state.md](state.md).
 
-**Domain Mastery** — focus on one specific domain end-to-end.
-→ Set `goal: domain_mastery` and `domain:` in [state.md](state.md).
-→ Open the relevant [roadmap](roadmaps/).
+**Domain Sprint** — one domain, end-to-end, then done.
+→ Set `active_goal: domain_sprint` and `domain:` in [state.md](state.md).
 
-**Maintenance** — no active goal, keep existing knowledge fresh.
-→ Set `goal: maintenance` in [state.md](state.md).
-→ Open [matrix/review_queue.md](matrix/review_queue.md) for stale topics.
+**Maintenance** — no active goal, just keep knowledge fresh.
+→ Set `active_goal: maintenance` in [state.md](state.md).
 
 ---
 
@@ -87,9 +87,12 @@ a study session. The output is your skill profile.
 
 ### Phase 1 — Goal Selection
 
-Choose what you are trying to achieve. The system adapts its
-recommendations to your goal. Two users with identical skill profiles
-but different goals should study different things.
+Choose what you are trying for. The system adapts its recommendations
+to your goal. Two users with identical skill profiles but different
+goals should study different things.
+
+Available goals: Interview Campaign · Single Interview Preparation ·
+Long-Term Mastery · Domain Sprint · Maintenance
 
 **Entry:** baseline assessment completed
 **Exit:** goal set → update state.md → Phase 2
@@ -118,7 +121,9 @@ shows goal-specific recommendations.
 | [hall_of_pain.md](hall_of_pain.md) | Every mistake, blank, and surprise |
 | [matrix/skill_matrix.md](matrix/skill_matrix.md) | All topics with mastery and freshness |
 | [matrix/review_queue.md](matrix/review_queue.md) | Priority-ordered queue with direct links |
-| [matrix/interview_mode.md](matrix/interview_mode.md) | Top 10 + gaps *(goal: technical_interview only)* |
+| [goals/README.md](goals/README.md) | Goal descriptions and decision tree |
+| [goals/interview_campaign.md](goals/interview_campaign.md) | Campaign tracker *(interview_campaign goal only)* |
+| [matrix/interview_mode.md](matrix/interview_mode.md) | Top 10 topics + gaps *(interview goals only)* |
 | [domains/](domains/) | Topic files by domain |
 | [drills/](drills/) | Coding exercises |
 | [code_reading/](code_reading/) | "What does this print?" puzzles |

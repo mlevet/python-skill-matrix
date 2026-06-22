@@ -23,13 +23,31 @@ This repository tracks Python topics across multiple domains, with emphasis on:
 the [baseline assessment](baseline_assessment/README.md) (60–90 min).
 
 **Assessment done, starting a study session?**
-→ [dashboard.md](dashboard.md) → [TODAY.md](TODAY.md)
+→ `python main.py next` — refreshes everything and opens TODAY.md
 
 **Just finished an interview?**
 → [interview_log/](interview_log/) — capture lessons, update priorities.
 
 **Not sure?**
 → [state.md](state.md) — your current phase and next action.
+
+---
+
+## CLI
+
+`main.py` automates repo state updates. No external dependencies.
+
+```
+python main.py next                  # daily driver — refresh everything, open TODAY.md
+python main.py onboard               # step-by-step guide after the baseline assessment
+python main.py status                # print phase, goal, assessment status, next action
+python main.py complete-baseline     # mark baseline as done, advance phase in state.md
+python main.py generate-review-queue # recompute matrix/review_queue.md from skill_matrix.md
+python main.py generate-dashboard    # regenerate the dynamic section of dashboard.md
+python main.py generate-today        # write TODAY.md for the top-priority topic
+```
+
+Markdown remains the primary interface. Generated files say so at the top.
 
 ---
 

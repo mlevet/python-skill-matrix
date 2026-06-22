@@ -511,6 +511,73 @@ def cmd_generate_today():
     print(f"Topic:   {top['topic']} (priority {top['priority']})")
 
 
+def cmd_next():
+    """Run the full safe refresh sequence and print the next action."""
+    print("── status ───────────────────────────────")
+    cmd_status()
+    print()
+    print("── generate-review-queue ────────────────")
+    cmd_generate_review_queue()
+    print()
+    print("── generate-dashboard ───────────────────")
+    cmd_generate_dashboard()
+    print()
+    print("── generate-today ───────────────────────")
+    cmd_generate_today()
+    print()
+    print("─────────────────────────────────────────")
+    print("Next action: open TODAY.md")
+
+
+def cmd_onboard():
+    """Print the post-baseline onboarding guide."""
+    state = read_state()
+    step = 1
+
+    print("Onboarding guide — follow these steps in order.")
+    print()
+
+    if not state["baseline_done"]:
+        print(f"  {step}. Complete the baseline assessment.")
+        print("     Open: baseline_assessment/README.md")
+        print("     Time: 60–90 minutes")
+        print("     Output: your scores per topic (0–5 scale)")
+        step += 1
+        print()
+        print(f"  {step}. Transfer scores to skill_matrix.md.")
+        print("     Open: matrix/skill_matrix.md")
+        print("     Update the Mastery column for each assessed topic.")
+        print("     Update the Freshness column to reflect today.")
+        step += 1
+        print()
+        print(f"  {step}. Mark the baseline as complete.")
+        print("     Run:  python main.py complete-baseline")
+        step += 1
+    else:
+        print(f"  ✓  Baseline assessment completed.")
+
+    print()
+
+    if state["goal"] == "not_selected":
+        print(f"  {step}. Choose your active goal.")
+        print("     Open: goals/README.md")
+        print("     Then set active_goal in state.md.")
+        print("     Options: interview_campaign · single_interview_prep ·")
+        print("              long_term_mastery · domain_sprint · maintenance")
+        step += 1
+    else:
+        print(f"  ✓  Goal set: {state['goal'].replace('_', ' ')}")
+
+    print()
+    print(f"  {step}. Generate your personalised files.")
+    print("     Run:  python main.py next")
+    print("     Opens: TODAY.md with your top-priority session.")
+    print()
+    print("After each study session:")
+    print("  - Update mastery and freshness in matrix/skill_matrix.md")
+    print("  - Run: python main.py next")
+
+
 # ─── Entry point ──────────────────────────────────────────────────────────────
 
 COMMANDS = {
@@ -519,12 +586,16 @@ COMMANDS = {
     "generate-review-queue": cmd_generate_review_queue,
     "generate-dashboard": cmd_generate_dashboard,
     "generate-today": cmd_generate_today,
+    "next": cmd_next,
+    "onboard": cmd_onboard,
 }
 
 USAGE = """\
 Python Skill Matrix CLI
 
 Commands:
+  next                  Refresh everything and print: open TODAY.md.
+  onboard               Step-by-step guide for after the baseline assessment.
   status                Print phase, goal, assessment status, next action.
   complete-baseline     Mark baseline assessment as completed in state.md.
   generate-review-queue Compute matrix/review_queue.md from skill_matrix.md.

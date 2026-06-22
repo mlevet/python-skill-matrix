@@ -1,54 +1,74 @@
 # Repository State
 
-> Update this file whenever your phase changes or your interview date
-> shifts. It is the single source of truth for where you are.
+> Update this file at each phase transition.
+> It is the single source of truth for where you are and what to do next.
 
 ---
 
 ```yaml
-phase: calibration
-# Options:
-#   calibration          — baseline assessment not yet completed
-#   interview_preparation — assessment done, interview date set
-#   maintenance          — no interview in next 4 weeks
-
+# ── CALIBRATION ──────────────────────────────────────────────────────
 baseline_assessment_completed: false
 # Set to true after completing baseline_assessment/README.md
 
-next_interview:
-  date: 2026-07-07
-  days_remaining: 15    # update daily
+# ── GOAL ─────────────────────────────────────────────────────────────
+goal: null
+# Set this after completing the baseline assessment.
+# Options:
+#   technical_interview  — preparing for a specific interview
+#   long_term_mastery    — deepen Python broadly, no deadline
+#   domain_mastery       — focus on one specific domain
+#   maintenance          — keep existing knowledge fresh
 
+# ── GOAL-SPECIFIC CONFIG ─────────────────────────────────────────────
+# Fill in only when goal: technical_interview
+technical_interview:
+  date: 2026-07-07
+  target_role: null       # e.g. "Backend Engineer"
+  target_seniority: null  # e.g. "Senior" / "Mid" / "Junior"
+
+# Fill in only when goal: domain_mastery
+domain_mastery:
+  domain: null
+  # Options: functional_python | oop | python_internals
+  #          advanced_syntax | data_structures | concurrency
+
+# ── PHASE (derived) ──────────────────────────────────────────────────
+phase: calibration
+# Derived from the fields above — do not set manually:
+#   calibration     — assessment not completed
+#   goal_selection  — assessment done, goal not yet set
+#   active          — assessment done, goal set
+
+# ── NEXT ACTION ──────────────────────────────────────────────────────
 next_action: baseline_assessment/README.md
-# What to open right now — update after each phase transition:
-#   calibration          → baseline_assessment/README.md
-#   interview_preparation → dashboard.md
-#   maintenance          → matrix/review_queue.md
+# Update after each transition:
+#   calibration     → baseline_assessment/README.md
+#   goal_selection  → START_HERE.md  (Goal Selection section)
+#   active          → dashboard.md
 ```
 
 ---
 
 ## Phase Transitions
 
-**Calibration → Interview Preparation**
-When to switch: baseline assessment completed and interview date set.
-What to do:
+**Calibration → Goal Selection**
+Trigger: baseline assessment completed.
 1. Set `baseline_assessment_completed: true`
-2. Set `phase: interview_preparation`
-3. Set `next_action: dashboard.md`
-4. Update `dashboard.md` phase banner
+2. Transfer scores to `matrix/skill_matrix.md`
+3. Set `phase: goal_selection`
+4. Set `next_action: START_HERE.md`
 
-**Interview Preparation → Maintenance**
-When to switch: interview passed, no new date set.
-What to do:
-1. Set `phase: maintenance`
-2. Set `next_action: matrix/review_queue.md`
-3. Update `dashboard.md` phase banner
+**Goal Selection → Active**
+Trigger: goal chosen.
+1. Set `goal: <chosen_goal>`
+2. Fill in the goal-specific config block if needed
+3. Set `phase: active`
+4. Set `next_action: dashboard.md`
+5. Update phase banner in `dashboard.md` and `START_HERE.md`
 
-**Maintenance → Interview Preparation**
-When to switch: new interview date confirmed.
-What to do:
-1. Set `phase: interview_preparation`
-2. Set `next_interview.date` and `days_remaining`
-3. Set `next_action: dashboard.md`
-4. Recalibrate `matrix/interview_mode.md`
+**Active → Goal Selection** (after interview, after domain completed, etc.)
+Trigger: goal achieved or changed.
+1. Log results (interview_log/ or hall_of_pain.md)
+2. Set `goal: null`
+3. Set `phase: goal_selection`
+4. Set `next_action: START_HERE.md`

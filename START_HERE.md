@@ -8,7 +8,6 @@ session by session.
 
 > **Current Phase: Calibration**
 > The baseline assessment has not been completed yet.
-> You do not have a skill profile. Study sessions are not calibrated.
 > → **[Run the baseline assessment first](baseline_assessment/README.md)**
 > *(Update this banner and [state.md](state.md) when your phase changes.)*
 
@@ -23,18 +22,41 @@ You are in **Phase 0 — Calibration**.
 → **[baseline_assessment/README.md](baseline_assessment/README.md)**
 
 Time: 60–90 minutes.
-Outcome: A skill profile that tells the system what you actually know.
-The review queue, priorities, and study sessions are all meaningless
-until this is done.
+Outcome: An honest skill profile. The review queue and study sessions
+are meaningless until you have one.
 
 Do not open `TODAY.md`. Do not open `dashboard.md`. Start here.
 
 ---
 
-### I completed the baseline assessment
+### I completed the baseline assessment but haven't set a goal
 
-You are in **Phase 1 — Interview Preparation** or
-**Phase 2 — Maintenance**.
+You are in **Phase 1 — Goal Selection**.
+
+What are you trying to achieve right now?
+
+**Technical Interview** — preparing for a specific upcoming interview.
+→ Set `goal: technical_interview` in [state.md](state.md).
+→ Fill in `date`, `target_role`, `target_seniority`.
+→ Open [dashboard.md](dashboard.md).
+
+**Long-Term Mastery** — no deadline, deepen Python across all domains.
+→ Set `goal: long_term_mastery` in [state.md](state.md).
+→ Open [matrix/review_queue.md](matrix/review_queue.md).
+
+**Domain Mastery** — focus on one specific domain end-to-end.
+→ Set `goal: domain_mastery` and `domain:` in [state.md](state.md).
+→ Open the relevant [roadmap](roadmaps/).
+
+**Maintenance** — no active goal, keep existing knowledge fresh.
+→ Set `goal: maintenance` in [state.md](state.md).
+→ Open [matrix/review_queue.md](matrix/review_queue.md) for stale topics.
+
+---
+
+### I have a goal set and want to study
+
+You are in **Phase 2 — Active**.
 
 → **[dashboard.md](dashboard.md)**
 
@@ -43,47 +65,44 @@ Outcome: One topic reviewed, mastery updated, queue advanced.
 
 ---
 
-### I just completed an interview
+### I just completed an interview or finished a goal
 
-→ **[interview_log/](interview_log/)**
-
-Time: 10 minutes.
-Outcome: Surprises captured, priorities updated for next time.
-Then update [state.md](state.md) to reflect your new phase.
+→ **[interview_log/](interview_log/)** — capture lessons (10 min)
+→ Update [state.md](state.md): set `goal: null`, `phase: goal_selection`
+→ Return to Goal Selection above
 
 ---
 
-## The Three Phases
+## The Phases
 
-### Phase 0 — Calibration ← you are here
+### Phase 0 — Calibration *(current)*
 
-Before you can study effectively, you need an honest picture of where
-you stand. The baseline assessment provides this. It is a one-time
-audit, not a study session.
+Run the baseline assessment. This is a one-time measurement — not
+a study session. The output is your skill profile.
 
-**Entry:** this file  
-**Exit:** baseline assessment completed → transfer scores → update state.md
-
----
-
-### Phase 1 — Interview Preparation
-
-Active study toward a specific interview date. The interview mode
-in `dashboard.md` tells you exactly which topics to cover and in
-what order, based on frequency × weakness × days remaining.
-
-**Entry:** baseline assessment completed + interview date set  
-**Exit:** interview completed → log it → update state.md
+**Entry:** first use
+**Exit:** assessment completed → update state.md → Phase 1
 
 ---
 
-### Phase 2 — Maintenance
+### Phase 1 — Goal Selection
 
-No interview scheduled. Study stale topics, deepen weak ones, add
-new domains. Cadence is slower — one session every few days is enough.
+Choose what you are trying to achieve. The system adapts its
+recommendations to your goal. Two users with identical skill profiles
+but different goals should study different things.
 
-**Entry:** no interview in next 4 weeks  
-**Exit:** new interview date confirmed → update state.md
+**Entry:** baseline assessment completed
+**Exit:** goal set → update state.md → Phase 2
+
+---
+
+### Phase 2 — Active
+
+Study sessions driven by your goal and skill profile. The dashboard
+shows goal-specific recommendations.
+
+**Entry:** goal set
+**Exit:** goal achieved or changed → update state.md → Phase 1
 
 ---
 
@@ -93,20 +112,20 @@ new domains. Cadence is slower — one session every few days is enough.
 
 | File | Purpose |
 |---|---|
-| [state.md](state.md) | Your current phase and next action |
-| [dashboard.md](dashboard.md) | Command center — start every study session here |
+| [state.md](state.md) | Current phase, goal, and next action |
+| [dashboard.md](dashboard.md) | Command center — goal-aware priorities |
 | [TODAY.md](TODAY.md) | Pre-planned session *(post-assessment only)* |
 | [hall_of_pain.md](hall_of_pain.md) | Every mistake, blank, and surprise |
 | [matrix/skill_matrix.md](matrix/skill_matrix.md) | All topics with mastery and freshness |
 | [matrix/review_queue.md](matrix/review_queue.md) | Priority-ordered queue with direct links |
-| [matrix/interview_mode.md](matrix/interview_mode.md) | Top 10 topics and gaps for the interview |
+| [matrix/interview_mode.md](matrix/interview_mode.md) | Top 10 + gaps *(goal: technical_interview only)* |
 | [domains/](domains/) | Topic files by domain |
 | [drills/](drills/) | Coding exercises |
 | [code_reading/](code_reading/) | "What does this print?" puzzles |
 | [roadmaps/](roadmaps/) | Structured learning paths |
 | [baseline_assessment/](baseline_assessment/) | Day 0 audit files |
 | [interview_log/](interview_log/) | Interview records |
-| [docs/user_journey.md](docs/user_journey.md) | How the system works end-to-end |
+| [docs/user_journey.md](docs/user_journey.md) | End-to-end system diagram |
 
 ---
 
@@ -128,7 +147,7 @@ new domains. Cadence is slower — one session every few days is enough.
 priority = freq_weight × (10 − mastery) × freshness_weight
 ```
 
-Interview mode (deadline active):
+Technical interview mode:
 
 ```
 score = freq_weight × (10 − mastery)
@@ -142,5 +161,4 @@ Frequency weights: Very High = 4 · High = 3 · Medium = 2 · Low = 1
 
 Every time you blank on something, get surprised, or fail a drill:
 add one entry to [hall_of_pain.md](hall_of_pain.md). Review it
-before every real interview. Externalized mistakes are easier to
-remember than internal ones.
+before every real interview.

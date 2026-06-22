@@ -1,22 +1,26 @@
 # Python Skill Matrix — Command Center
 
 > **Current Phase: Calibration**
-> The baseline assessment has not been completed. Priorities and
-> study sessions below are pre-assessment estimates only.
+> The baseline assessment has not been completed. No goal is set.
+> Priorities below are pre-assessment estimates only.
 > → **[Run the baseline assessment](baseline_assessment/README.md)**
-> *(Change this banner when phase changes — see [state.md](state.md))*
+> *(Update this banner when your phase changes — see [state.md](state.md))*
 
 ---
 
 **Topics documented:** 29 · **Hall of Pain:** 1 open entry
-**Assessment Status:** Not Started · *Last updated: 2026-06-22*
+**Assessment:** Not Started · **Goal:** Not Set · *Last updated: 2026-06-22*
 
-→ **[START_HERE.md](START_HERE.md)** — Not sure where to begin? Read this.
-→ **[state.md](state.md)** — Current phase and next action.
+→ **[START_HERE.md](START_HERE.md)** — phases, decision tree, file map
+→ **[state.md](state.md)** — current phase, goal, and next action
 
 ---
 
-## Next Action — Calibration Phase
+## Next Action
+
+*The recommended action depends on your current phase and goal.*
+
+### Phase: Calibration
 
 | | |
 |---|---|
@@ -25,13 +29,29 @@
 | **Time** | 60–90 minutes |
 | **Outcome** | Skill profile · calibrated review queue · realistic priorities |
 
-Complete the audit, then come back to this file.
-The Top Priorities and Today's Session sections below will be
-meaningful after that.
+After the audit: transfer scores to `skill_matrix.md`, then set your
+goal in `state.md` and return here.
 
 ---
 
-## Interview Mode
+### Phase: Goal Selection *(after assessment)*
+
+*Replace this section when you reach this phase.*
+
+Open [START_HERE.md → Goal Selection](START_HERE.md) and choose one:
+
+| Goal | Next file | When to use |
+|---|---|---|
+| Technical Interview | [matrix/interview_mode.md](matrix/interview_mode.md) | Interview date is set |
+| Long-Term Mastery | [matrix/review_queue.md](matrix/review_queue.md) | No deadline |
+| Domain Mastery | [roadmaps/](roadmaps/) | One domain to finish |
+| Maintenance | [matrix/review_queue.md](matrix/review_queue.md) | Keep knowledge fresh |
+
+---
+
+### Phase: Active — Technical Interview *(if goal is set)*
+
+*This section is only relevant when `goal: technical_interview` in state.md.*
 
 | | |
 |---|---|
@@ -39,7 +59,7 @@ meaningful after that.
 | **Days remaining** | 15 *(update daily)* |
 | **Preparation status** | Baseline assessment not started |
 
-→ **[matrix/interview_mode.md](matrix/interview_mode.md)** — Top 10 review topics · Top 5 high-risk gaps · 15-day plan
+→ **[matrix/interview_mode.md](matrix/interview_mode.md)** — Top 10 topics · Top 5 gaps · 15-day plan
 
 **Top 3 right now:** Generators & `yield` · Late binding · Comprehensions
 
@@ -47,7 +67,7 @@ meaningful after that.
 
 ## Today's Session
 
-> *Available after baseline assessment is completed.*
+> *Only meaningful after baseline assessment and goal selection.*
 > → [TODAY.md](TODAY.md) — Lambda Functions *(pre-assessment estimate)*
 
 ---

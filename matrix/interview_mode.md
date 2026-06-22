@@ -1,5 +1,10 @@
 # Interview Mode — July 7, 2026
 
+> **Goal-specific:** This file is only relevant when
+> `goal: technical_interview` is set in [state.md](../state.md).
+> If your goal is different, open
+> [START_HERE.md](../START_HERE.md) → Goal Selection instead.
+
 **Target event:** Python technical interview
 **Interview date:** 2026-07-07
 **Days remaining:** 15 *(update daily)*

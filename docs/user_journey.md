@@ -10,18 +10,20 @@ New User
   │
   ▼
 START_HERE.md
-  │  Understand the three phases.
-  │  Identify which phase you are in.
+  │  Understand the phases.
+  │  Identify where you are.
   │
   ▼
-─────────────────────────────────────
+──────────────────────────────────────────
 PHASE 0 — CALIBRATION
-─────────────────────────────────────
+"What do I know?"
+──────────────────────────────────────────
   │
   ▼
 baseline_assessment/README.md
   │  35 topics · 60–90 minutes
-  │  Self-rating + interview question + code reading per topic
+  │  Self-rating + interview Q + code reading per topic
+  │  Goal-agnostic: the same assessment regardless of why you're here.
   │
   ▼
 baseline_assessment/summary_template.md
@@ -29,83 +31,78 @@ baseline_assessment/summary_template.md
   │
   ▼
 matrix/skill_matrix.md
-  │  Transfer assessment scores (0–5 → 0–10 scale)
+  │  Transfer assessment scores
   │
   ▼
-matrix/review_queue.md
-  │  Rebuild from Weak and Medium results
+state.md  →  phase: goal_selection
   │
   ▼
-state.md  →  phase: interview_preparation  (or maintenance)
+──────────────────────────────────────────
+PHASE 1 — GOAL SELECTION
+"What am I trying to achieve?"
+──────────────────────────────────────────
   │
-  ▼
-─────────────────────────────────────
-PHASE 1 — INTERVIEW PREPARATION
-─────────────────────────────────────
+  ├──── Technical Interview
+  │       Set date, target_role, target_seniority in state.md
+  │       │
+  │       ▼
+  │     matrix/interview_mode.md
+  │       Top 10 topics · Top 5 high-risk gaps
+  │       Scored by: freq_weight × (10 − mastery)
+  │       │
+  │       ▼
+  │     Daily Sessions  →  dashboard.md each time
+  │       Topic → Drill → Code Reading → Update skill_matrix
+  │       │
+  │       ▼
+  │     Interview
+  │       │
+  │       ▼
+  │     interview_log/  +  hall_of_pain.md
+  │       │
+  │       └──── back to Goal Selection
   │
-  ▼
-dashboard.md  (every session)
-  │  Check interview countdown and top priorities
+  ├──── Long-Term Mastery
+  │       No deadline. Broad coverage across all domains.
+  │       │
+  │       ▼
+  │     matrix/review_queue.md  (every session)
+  │       Follow priority order · update mastery · repeat
   │
-  ▼
-matrix/interview_mode.md
-  │  Top 10 topics · Top 5 high-risk gaps · study plan
+  ├──── Domain Mastery
+  │       Focus on one domain end-to-end.
+  │       │
+  │       ▼
+  │     roadmaps/<domain>_path.md
+  │       Follow steps · complete drills · code reading
+  │       │
+  │       └──── when path complete: back to Goal Selection
   │
-  ▼
-Daily Session Loop  (25–40 min each)
-  │
-  ├── Topic file  →  read 30-second explanation
-  ├── Drill file  →  solve exercises
-  ├── Code reading  →  predict output, reveal answer
-  ├── skill_matrix.md  →  update mastery + freshness
-  └── hall_of_pain.md  →  log any surprises or blanks
-  │
-  ▼
-Interview
-  │
-  ▼
-─────────────────────────────────────
-POST-INTERVIEW
-─────────────────────────────────────
-  │
-  ▼
-interview_log/
-  │  Capture: unexpected topics, questions asked, gaps exposed
-  │
-  ▼
-hall_of_pain.md
-  │  Add any new entries from the interview
-  │
-  ▼
-matrix/skill_matrix.md
-  │  Update mastery scores based on how topics actually felt
-  │
-  ▼
-state.md  →  phase: maintenance  (or interview_preparation if next date set)
-  │
-  ▼
-─────────────────────────────────────
-PHASE 2 — MAINTENANCE
-─────────────────────────────────────
-  │
-  ▼
-matrix/review_queue.md  (every few days)
-  │  Review stale topics · deepen weak ones · add new domains
-  │
-  └── When new interview date confirmed:
-      Update state.md  →  phase: interview_preparation
-      Recalibrate matrix/interview_mode.md
+  └──── Maintenance
+          Keep existing knowledge fresh. Light cadence.
+          │
+          ▼
+        matrix/review_queue.md  (every few days)
+          Filter for Stale / Critical only
 ```
 
 ---
 
 ## Key Invariants
 
-- **state.md is always current.** It is the authoritative answer to
-  "what phase am I in and what should I do next."
-- **hall_of_pain.md grows over time.** Every surprise is an entry.
-  Review it before every real interview.
-- **skill_matrix.md drives everything.** The review queue, interview
-  mode scores, and today's session all derive from it. Keep it honest.
-- **The baseline assessment is a one-time calibration.** Re-run it
-  after 6–8 weeks to measure progress, not sooner.
+- **Calibration is goal-agnostic.** The baseline assessment is the
+  same regardless of why you are here. It answers "what do I know?"
+  Goal selection answers "what am I trying to achieve?" — a separate
+  question answered after calibration.
+
+- **state.md is always current.** Phase, goal, and next action are
+  always up to date. When in doubt, open state.md.
+
+- **skill_matrix.md drives everything.** Review queue, interview mode
+  scores, and session recommendations all derive from it. Keep it honest.
+
+- **hall_of_pain.md grows over time.** Every blank, surprise, and
+  failed prediction is an entry. Review it before every real interview.
+
+- **Re-run the baseline assessment after 6–8 weeks**, not sooner.
+  It measures progress, not daily learning.

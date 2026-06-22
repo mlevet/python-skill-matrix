@@ -1,149 +1,65 @@
 # Skill Matrix
 
-Master topic table. Update `confidence` and `last_reviewed` after every session.
+> **Mastery:** 0 = unknown · 3 = recognized but weak · 5 = understands basics · 7 = can explain in interview · 10 = can explain, code, debug, and teach  
+> **Freshness:** Fresh ≤ 7 days · Medium ≤ 30 days · Stale > 30 days · Critical = important topic > 60 days unreviewed  
+> **Priority:** `interview_freq_weight × (10 − mastery) × staleness_factor` — higher = review sooner
 
-See [scoring_model.md](scoring_model.md) for what the scores mean.
-
----
-
-## How to read this table
-
-- **Confidence:** 0 (blank) → 5 (interview-ready)
-- **Last reviewed:** YYYY-MM-DD or `never`
-- **Interview freq:** high / medium / low
-- **Topic file:** link to the domain notes file
-
----
-
-## basics
-
-| Topic | Confidence | Last Reviewed | Interview Freq | Topic File |
-|---|---|---|---|---|
-| Variables & scoping (LEGB) | 0 | never | high | [link](../domains/basics/variables_scoping.md) |
-| Built-in types & mutability | 0 | never | high | [link](../domains/basics/types_mutability.md) |
-| `is` vs `==` | 0 | never | high | [link](../domains/basics/is_vs_eq.md) |
-| Exception handling | 0 | never | medium | [link](../domains/basics/exceptions.md) |
-| Comprehensions (list/dict/set/gen) | 0 | never | high | [link](../domains/basics/comprehensions.md) |
-| `*args` and `**kwargs` | 0 | never | high | [link](../domains/basics/args_kwargs.md) |
-
----
-
-## data_structures
-
-| Topic | Confidence | Last Reviewed | Interview Freq | Topic File |
-|---|---|---|---|---|
-| list — internals & complexity | 0 | never | high | [link](../domains/data_structures/list.md) |
-| dict — internals & ordering | 0 | never | high | [link](../domains/data_structures/dict.md) |
-| set & frozenset | 0 | never | medium | [link](../domains/data_structures/set.md) |
-| tuple — immutability traps | 0 | never | medium | [link](../domains/data_structures/tuple.md) |
-| `collections.deque` | 0 | never | medium | [link](../domains/data_structures/deque.md) |
-| `collections.defaultdict` | 0 | never | medium | [link](../domains/data_structures/defaultdict.md) |
-| `collections.namedtuple` | 0 | never | low | [link](../domains/data_structures/namedtuple.md) |
-| `heapq` | 0 | never | medium | [link](../domains/data_structures/heapq.md) |
-
----
-
-## functional_python
-
-| Topic | Confidence | Last Reviewed | Interview Freq | Topic File |
-|---|---|---|---|---|
-| Lambdas | 0 | never | high | [link](../domains/functional_python/lambdas.md) |
-| Closures & late binding | 0 | never | high | [link](../domains/functional_python/closures.md) |
-| Decorators | 0 | never | high | [link](../domains/functional_python/decorators.md) |
-| `map` / `filter` / `reduce` | 0 | never | high | [link](../domains/functional_python/map_filter_reduce.md) |
-| `functools.partial` | 0 | never | medium | [link](../domains/functional_python/functools.md) |
-| `functools.lru_cache` | 0 | never | medium | [link](../domains/functional_python/functools.md) |
-| `itertools` essentials | 0 | never | medium | [link](../domains/functional_python/itertools.md) |
-| Functions as first-class objects | 0 | never | high | [link](../domains/functional_python/first_class_functions.md) |
-
----
-
-## oop
-
-| Topic | Confidence | Last Reviewed | Interview Freq | Topic File |
-|---|---|---|---|---|
-| Dunder / magic methods | 0 | never | high | [link](../domains/oop/dunder_methods.md) |
-| Inheritance & MRO (C3) | 0 | never | high | [link](../domains/oop/inheritance_mro.md) |
-| Descriptors (`__get__`, `__set__`) | 0 | never | medium | [link](../domains/oop/descriptors.md) |
-| `@classmethod` vs `@staticmethod` | 0 | never | high | [link](../domains/oop/classmethods.md) |
-| `__slots__` | 0 | never | medium | [link](../domains/oop/slots.md) |
-| Metaclasses | 0 | never | medium | [link](../domains/oop/metaclasses.md) |
-| `dataclasses` | 0 | never | medium | [link](../domains/oop/dataclasses.md) |
-
----
-
-## python_internals
-
-| Topic | Confidence | Last Reviewed | Interview Freq | Topic File |
-|---|---|---|---|---|
-| LEGB scoping rules | 0 | never | high | [link](../domains/python_internals/scoping_legb.md) |
-| GC & reference counting | 0 | never | medium | [link](../domains/python_internals/gc_memory.md) |
-| The GIL | 0 | never | medium | [link](../domains/python_internals/gil.md) |
-| Python data model (`__dunder__`) | 0 | never | high | [link](../domains/python_internals/data_model.md) |
-| Bytecode & `dis` | 0 | never | low | [link](../domains/python_internals/bytecode.md) |
-| Import system | 0 | never | low | [link](../domains/python_internals/import_system.md) |
-
----
-
-## advanced_syntax
-
-| Topic | Confidence | Last Reviewed | Interview Freq | Topic File |
-|---|---|---|---|---|
-| Generators & `yield` | 0 | never | high | [link](../domains/advanced_syntax/generators.md) |
-| Walrus operator (`:=`) | 0 | never | medium | [link](../domains/advanced_syntax/walrus.md) |
-| Extended unpacking | 0 | never | high | [link](../domains/advanced_syntax/unpacking.md) |
-| Context managers (`__enter__`/`__exit__`) | 0 | never | medium | [link](../domains/advanced_syntax/context_managers.md) |
-| f-strings (advanced) | 0 | never | medium | [link](../domains/advanced_syntax/fstrings.md) |
-| Type hints & `typing` module | 0 | never | medium | [link](../domains/advanced_syntax/type_hints.md) |
-
----
-
-## concurrency
-
-| Topic | Confidence | Last Reviewed | Interview Freq | Topic File |
-|---|---|---|---|---|
-| `threading` basics | 0 | never | medium | [link](../domains/concurrency/threading.md) |
-| `multiprocessing` basics | 0 | never | medium | [link](../domains/concurrency/multiprocessing.md) |
-| `asyncio` & `await` | 0 | never | high | [link](../domains/concurrency/asyncio.md) |
-| `concurrent.futures` | 0 | never | medium | [link](../domains/concurrency/concurrent_futures.md) |
-
----
-
-## stdlib
-
-| Topic | Confidence | Last Reviewed | Interview Freq | Topic File |
-|---|---|---|---|---|
-| `collections` module | 0 | never | high | [link](../domains/stdlib/collections.md) |
-| `itertools` module | 0 | never | medium | [link](../domains/stdlib/itertools.md) |
-| `functools` module | 0 | never | medium | [link](../domains/stdlib/functools.md) |
-| `pathlib` | 0 | never | low | [link](../domains/stdlib/pathlib.md) |
-| `re` (regex) | 0 | never | medium | [link](../domains/stdlib/re.md) |
-| `datetime` | 0 | never | low | [link](../domains/stdlib/datetime.md) |
-
----
-
-## testing_debugging
-
-| Topic | Confidence | Last Reviewed | Interview Freq | Topic File |
-|---|---|---|---|---|
-| `pytest` fixtures & parametrize | 0 | never | medium | [link](../domains/testing_debugging/pytest.md) |
-| `unittest.mock` | 0 | never | medium | [link](../domains/testing_debugging/mock.md) |
-| `pdb` debugger | 0 | never | low | [link](../domains/testing_debugging/pdb.md) |
-| Profiling (`cProfile`, `line_profiler`) | 0 | never | low | [link](../domains/testing_debugging/profiling.md) |
-
----
-
-## Summary
-
-| Domain | Topics | Avg Confidence |
-|---|---|---|
-| basics | 6 | 0.0 |
-| data_structures | 8 | 0.0 |
-| functional_python | 8 | 0.0 |
-| oop | 7 | 0.0 |
-| python_internals | 6 | 0.0 |
-| advanced_syntax | 6 | 0.0 |
-| concurrency | 4 | 0.0 |
-| stdlib | 6 | 0.0 |
-| testing_debugging | 4 | 0.0 |
-| **Total** | **55** | **0.0** |
+| Domain | Topic | Mastery | Freshness | Interview Frequency | Priority | Last Reviewed | Next Review |
+|---|---|---:|---|---|---:|---|---|
+| Basics | Built-in types | 0/10 | Stale | High | TBD | Never | TBD |
+| Basics | `is` vs `==` | 0/10 | Stale | High | TBD | Never | TBD |
+| Basics | Comprehensions | 0/10 | Stale | High | TBD | Never | TBD |
+| Basics | `*args` and `**kwargs` | 0/10 | Stale | High | TBD | Never | TBD |
+| Basics | Exception handling | 0/10 | Stale | Medium | TBD | Never | TBD |
+| Data Structures | list — internals & complexity | 0/10 | Stale | High | TBD | Never | TBD |
+| Data Structures | dict — internals & ordering | 0/10 | Stale | High | TBD | Never | TBD |
+| Data Structures | set & frozenset | 0/10 | Stale | Medium | TBD | Never | TBD |
+| Data Structures | tuple — immutability traps | 0/10 | Stale | Medium | TBD | Never | TBD |
+| Data Structures | `collections.deque` | 0/10 | Stale | Medium | TBD | Never | TBD |
+| Data Structures | `collections.defaultdict` | 0/10 | Stale | Medium | TBD | Never | TBD |
+| Data Structures | `collections.namedtuple` | 0/10 | Stale | Low | TBD | Never | TBD |
+| Data Structures | `heapq` | 0/10 | Stale | Medium | TBD | Never | TBD |
+| Functional Python | Lambda functions | 6/10 | Medium | High | TBD | TBD | TBD |
+| Functional Python | Functions as objects | 7/10 | Medium | High | TBD | TBD | TBD |
+| Functional Python | Closures | 5/10 | Stale | High | TBD | TBD | TBD |
+| Functional Python | Decorators | 6/10 | Medium | High | TBD | TBD | TBD |
+| Functional Python | `map` / `filter` / `reduce` | 0/10 | Stale | High | TBD | Never | TBD |
+| Functional Python | `functools.partial` | 0/10 | Stale | Medium | TBD | Never | TBD |
+| Functional Python | `functools.lru_cache` | 0/10 | Stale | Medium | TBD | Never | TBD |
+| Functional Python | `itertools` essentials | 0/10 | Stale | Medium | TBD | Never | TBD |
+| OOP | Dunder / magic methods | 0/10 | Stale | High | TBD | Never | TBD |
+| OOP | Inheritance & MRO | 4/10 | Stale | Medium | TBD | TBD | TBD |
+| OOP | `__call__` | 4/10 | Stale | Medium | TBD | TBD | TBD |
+| OOP | `@classmethod` vs `@staticmethod` | 0/10 | Stale | High | TBD | Never | TBD |
+| OOP | Descriptors | 0/10 | Stale | Medium | TBD | Never | TBD |
+| OOP | `__slots__` | 0/10 | Stale | Medium | TBD | Never | TBD |
+| OOP | Metaclasses | 0/10 | Stale | Medium | TBD | Never | TBD |
+| OOP | Dataclasses | 0/10 | Stale | Medium | TBD | Never | TBD |
+| Python Internals | Mutability | 7/10 | Medium | High | TBD | TBD | TBD |
+| Python Internals | LEGB scoping | 0/10 | Stale | High | TBD | Never | TBD |
+| Python Internals | Python data model | 0/10 | Stale | High | TBD | Never | TBD |
+| Python Internals | GC & reference counting | 0/10 | Stale | Medium | TBD | Never | TBD |
+| Python Internals | The GIL | 0/10 | Stale | Medium | TBD | Never | TBD |
+| Python Internals | Bytecode & `dis` | 0/10 | Stale | Low | TBD | Never | TBD |
+| Python Internals | Import system | 0/10 | Stale | Low | TBD | Never | TBD |
+| Advanced Syntax | Generators & `yield` | 0/10 | Stale | High | TBD | Never | TBD |
+| Advanced Syntax | Extended unpacking | 0/10 | Stale | High | TBD | Never | TBD |
+| Advanced Syntax | Rare function signatures | 0/10 | Stale | High | TBD | Never | TBD |
+| Advanced Syntax | Context managers | 0/10 | Stale | Medium | TBD | Never | TBD |
+| Advanced Syntax | Walrus operator (`:=`) | 0/10 | Stale | Medium | TBD | Never | TBD |
+| Advanced Syntax | f-strings (advanced) | 0/10 | Stale | Medium | TBD | Never | TBD |
+| Advanced Syntax | Type hints & `typing` | 0/10 | Stale | Medium | TBD | Never | TBD |
+| Concurrency | `asyncio` & `await` | 0/10 | Stale | High | TBD | Never | TBD |
+| Concurrency | `threading` basics | 0/10 | Stale | Medium | TBD | Never | TBD |
+| Concurrency | `multiprocessing` basics | 0/10 | Stale | Medium | TBD | Never | TBD |
+| Concurrency | `concurrent.futures` | 0/10 | Stale | Medium | TBD | Never | TBD |
+| Standard Library | `collections` module | 0/10 | Stale | High | TBD | Never | TBD |
+| Standard Library | `itertools` module | 0/10 | Stale | Medium | TBD | Never | TBD |
+| Standard Library | `functools` module | 0/10 | Stale | Medium | TBD | Never | TBD |
+| Standard Library | `re` (regex) | 0/10 | Stale | Medium | TBD | Never | TBD |
+| Standard Library | `pathlib` | 0/10 | Stale | Low | TBD | Never | TBD |
+| Standard Library | `datetime` | 0/10 | Stale | Low | TBD | Never | TBD |
+| Testing & Debugging | `pytest` fixtures & parametrize | 0/10 | Stale | Medium | TBD | Never | TBD |
+| Testing & Debugging | `unittest.mock` | 0/10 | Stale | Medium | TBD | Never | TBD |
+| Testing & Debugging | `pdb` debugger | 0/10 | Stale | Low | TBD | Never | TBD |
+| Testing & Debugging | Profiling | 0/10 | Stale | Low | TBD | Never | TBD |

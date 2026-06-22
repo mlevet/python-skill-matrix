@@ -10,82 +10,68 @@
 | Interview Frequency | High |
 | Last Reviewed | TBD |
 | Next Review | TBD |
-| Priority | TBD |
-
----
 
 ## 30-second explanation
 
-Late binding means closures look up variables at call time, not at definition time. When a lambda or inner function closes over a loop variable, all copies share the same variable — and they all see its final value when called.
-
----
+Late binding means that closures look up the value of a variable at call time, not at the time the function was defined. When multiple closures are created in a loop over the same variable, they all share that single variable and will all read its final value when called.
 
 ## Mental model
 
-The closure holds a reference to the variable, like a pointer. It doesn't copy the value. When you call the function, it follows the pointer to find the current value — which may have changed since the function was created.
+The closure stores a pointer to the variable, not a snapshot of its value. When you call the function, it follows the pointer and reads whatever the variable holds at that moment.
 
----
+```python
+# The closure holds a pointer to 'i'
+# When called, it reads i's current value
+funcs = [lambda: i for i in range(5)]
+```
+
+By the time any of these lambdas is called, the loop has finished and `i` is `4`. All five functions follow the same pointer and see the same value.
 
 ## Why interviewers ask this
 
-This is one of the most common Python "what does this print?" traps. It tests whether you understand the difference between closing over a name vs capturing a value, and whether you know the two standard fixes.
-
----
+This is one of the most common "what does this print?" traps in Python interviews. It appears in questions involving lambdas in loops, list comprehensions with closures, and dictionary-based dispatch. Knowing the fix signals real-world Python experience.
 
 ## Common traps
 
-- **The trap:** `[lambda: i for i in range(5)]` — all five lambdas return `4` because `i` is the same variable and holds `4` after the loop.
-- **Fix 1 — default argument:** `lambda i=i: i` evaluates `i` at definition time and stores it as a default.
-- **Fix 2 — factory function:** wrapping in `def make(i): return lambda: i` creates a new scope per iteration.
-- **`functools.partial` avoids it:** `partial(f, i)` binds the value eagerly, not the variable.
+- Closures capture the name, not the current value. The lookup happens at call time.
+- The loop variable is a single shared variable, not a new variable per iteration.
+- The fix using `i=i` looks like a default argument but is actually forcing eager evaluation.
+- `functools.partial` also avoids late binding because it binds argument values at creation time.
 
----
-
-## Code-reading examples
+## Code-reading example
 
 ```python
-functions = []
+funcs = []
 for i in range(3):
-    functions.append(lambda: i * 2)
+    funcs.append(lambda: i * 2)
 
-print([f() for f in functions])
+print([f() for f in funcs])
 ```
 
-**Question:** What does this output?
+### Answer
 
-**Prediction:** write your answer before checking.
-
-**Answer:**
 ```
 [4, 4, 4]
 ```
 
-**Why:** All three lambdas close over the same `i`. After the loop, `i == 2`. Each lambda returns `2 * 2 == 4`.
+### Explanation
 
----
+All three lambdas close over the same variable `i`. By the time they are called, the loop has ended and `i == 2`. Each lambda computes `2 * 2 = 4`.
 
-## Coding drills
+### Fix
 
-- Write the broken version and the two fixed versions of a late-binding loop
-- Predict the output: `fs = [lambda x, i=i: x + i for i in range(3)]` — then call `fs[0](10)`, `fs[1](10)`, `fs[2](10)`
-- Demonstrate that `functools.partial` does not have the late-binding problem
+```python
+funcs = []
+for i in range(3):
+    funcs.append(lambda i=i: i * 2)
 
----
+print([f() for f in funcs])  # [0, 2, 4]
+```
+
+The default argument `i=i` is evaluated immediately when the lambda is created, capturing the current value of `i` rather than a reference to the variable.
 
 ## Related topics
 
-- [Closures](closures.md)
-- [Lambda functions](lambda_functions.md)
-- [functools.partial](partial.md)
-
----
-
-## My mistakes
-
----
-
-## Review history
-
-| Date | Result | Notes |
-|---|---|---|
-| TBD | TBD | TBD |
+- Closures
+- Lambda functions
+- functools.partial

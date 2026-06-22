@@ -10,87 +10,64 @@
 | Interview Frequency | High |
 | Last Reviewed | TBD |
 | Next Review | TBD |
-| Priority | TBD |
-
----
 
 ## 30-second explanation
 
 In Python, functions are first-class objects. They can be assigned to variables, stored in data structures, passed as arguments, and returned from other functions. `type(f)` returns `<class 'function'>`. This is the foundation of decorators, callbacks, and functional programming patterns.
 
----
-
 ## Mental model
 
-A function is just an object that happens to be callable. The `def` statement creates a function object and binds it to a name — exactly like `x = 42` creates an int object. After that, the name is just a reference.
+A function is just an object that happens to be callable. The `def` statement creates a function object and binds it to a name — exactly like `x = 42` creates an int and binds it. After that, the name is just a reference.
 
----
+```python
+def greet(name):
+    return f"hello {name}"
+
+say_hello = greet   # two names, one object
+```
+
+`say_hello` and `greet` point to the same function. Deleting or reassigning one doesn't affect the other.
 
 ## Why interviewers ask this
 
-Tests whether you understand that Python functions are not special syntax magic — they're objects with attributes. A good answer demonstrates understanding of `__name__`, `__doc__`, callable dispatch, and the difference between a function and the name that points to it.
-
----
+They are testing whether you understand that functions are not special syntax — they're objects with attributes (`__name__`, `__doc__`, `__code__`). This underpins decorators, callbacks, and any pattern where behavior is passed around as data.
 
 ## Common traps
 
-- **Name vs object:** `f = print; del print` — `f` still works because it holds a reference to the object, not the name.
-- **`__name__` doesn't change:** if you assign a function to another variable, `__name__` still reflects the original definition name.
-- **`callable()` vs type check:** classes and instances with `__call__` are callable — never check `type(x) is function`.
+- Assigning `f = greet` creates a second reference, not a copy. `f is greet` is `True`.
+- Reassigning `greet = None` does not affect `f` — `f` still holds the original object.
+- `__name__` is an attribute of the object, not the variable. It reflects the name at definition, not the current variable name.
+- `callable(x)` is the correct check, not `type(x) is function` — classes and instances with `__call__` are also callable.
 
----
-
-## Code-reading examples
+## Code-reading example
 
 ```python
 def greet(name):
     return f"hello {name}"
 
 say = greet
-print(say is greet)
-print(say.__name__)
 greet = None
+
 print(say("Alice"))
+print(say.__name__)
+print(say is greet)
 ```
 
-**Question:** What does this output?
+### Answer
 
-**Prediction:** write your answer before checking.
-
-**Answer:**
 ```
-True
-greet
 hello Alice
+greet
+False
 ```
 
-**Why:** `say` and `greet` point to the same function object. Setting `greet = None` only rebinds the name — `say` still holds the original reference. `__name__` is an attribute of the object, not the variable name.
+### Explanation
 
----
-
-## Coding drills
-
-- Build a dispatch table: dict mapping strings to functions, call by key
-- Write `apply(func, value)` that calls any single-argument function
-- Sort a list of dicts by a key using a lambda as the `key=` argument
-
----
+`say` still holds the original function object. Setting `greet = None` only rebinds the name `greet` — it doesn't touch the object. `say.__name__` is `"greet"` because `__name__` is fixed at definition time, not updated when you reassign the variable. `say is greet` is `False` because `greet` now points to `None`.
 
 ## Related topics
 
-- [Lambda functions](lambda_functions.md)
-- [Closures](closures.md)
-- [Higher-order functions](higher_order_functions.md)
-- [Decorators](decorators.md)
-
----
-
-## My mistakes
-
----
-
-## Review history
-
-| Date | Result | Notes |
-|---|---|---|
-| TBD | TBD | TBD |
+- Lambda functions
+- Closures
+- Higher-order functions
+- Decorators

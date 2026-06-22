@@ -10,75 +10,54 @@
 | Interview Frequency | TBD |
 | Last Reviewed | TBD |
 | Next Review | TBD |
-| Priority | TBD |
-
----
 
 ## 30-second explanation
 
 Write a short interview-ready explanation. Aim for what you'd say if an interviewer asked "can you explain X?"
 
----
-
 ## Mental model
 
 Explain the concept visually or with an analogy. What image or rule makes this stick?
 
----
+```python
+# Show a minimal code comparison if helpful
+```
 
 ## Why interviewers ask this
 
 What is the interviewer actually testing? What does a good answer signal?
 
----
-
 ## Common traps
 
-- **Trap 1:** what most people get wrong and why
-- **Trap 2:**
-- **Trap 3:**
+- Plain sentence describing the trap and why people get it wrong.
+- Another trap.
+- Another trap.
 
----
-
-## Code-reading examples
+## Code-reading example
 
 ```python
-# Example code
+# Minimal example that illustrates the core trap or concept
 ```
 
-**Question:** What does this code output?
+### Answer
 
-**Prediction:** write your answer before checking.
+```
+expected output
+```
 
-**Answer:** TODO
+### Explanation
 
-**Why:** explain step by step.
+Walk through the code step by step. What surprising thing happens and why?
 
----
+### Fix
 
-## Coding drills
+```python
+# Corrected version, if applicable
+```
 
-- Drill 1: implement X from scratch
-- Drill 2: predict the output of Y
-- Drill 3: fix the bug in Z
-
----
+Brief note on what the fix does differently.
 
 ## Related topics
 
-- [Topic A](../domain/topic_a.md)
-- [Topic B](../domain/topic_b.md)
-
----
-
-## My mistakes
-
-*Track mistakes made during interviews or drills.*
-
----
-
-## Review history
-
-| Date | Result | Notes |
-|---|---|---|
-| TBD | TBD | TBD |
+- Topic A
+- Topic B

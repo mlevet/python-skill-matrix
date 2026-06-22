@@ -10,38 +10,38 @@
 | Interview Frequency | High |
 | Last Reviewed | TBD |
 | Next Review | TBD |
-| Priority | TBD |
-
----
 
 ## 30-second explanation
 
 A closure is a function that retains access to variables from its enclosing scope, even after that scope has finished executing. The variables are captured by reference — not by value. This distinction is the source of the late-binding trap.
 
----
-
 ## Mental model
 
-Think of a closure as a function bundled with a backpack. The backpack contains cell objects — live references to variables from the outer scope. When the function runs, it reaches into the backpack to find the current value of those variables.
+A closure is a function bundled with a backpack. The backpack holds live references — called cell objects — to variables from the outer scope. When the function runs, it reaches into the backpack to find the current value of each variable.
 
----
+```python
+def make_multiplier(n):
+    def multiply(x):
+        return x * n   # n is in the backpack
+    return multiply
+
+double = make_multiplier(2)
+```
+
+`double.__closure__[0].cell_contents` is `2` — the captured value of `n`.
 
 ## Why interviewers ask this
 
-Closures are a Python fundamental that most developers get partially wrong. Interviewers use them to test whether you understand reference semantics, `nonlocal`, and the late-binding trap. Getting both "what is a closure" and "what is the trap" right is the mark of fluency.
-
----
+Closures are a core Python concept that most developers understand incompletely. Interviewers use them to test whether you know the difference between capturing a name and capturing a value, how `nonlocal` works, and how to diagnose and fix the late-binding trap.
 
 ## Common traps
 
-- **Capture by reference, not value:** the closure holds a live reference — if the variable changes after the closure is created, the closure sees the new value.
-- **Late binding in loops:** all closures in a loop share the same variable (see [late_binding.md](late_binding.md)).
-- **`nonlocal` required to write:** you can read an enclosing variable freely, but assigning to it requires `nonlocal` or Python treats it as a new local.
-- **`UnboundLocalError`:** any assignment to a name inside a function makes it local for the entire function body — even lines before the assignment.
+- Closures capture the variable, not the value. If the variable changes later, the closure sees the new value.
+- `nonlocal` is required to assign to an enclosing variable. Without it, Python treats the name as a new local, causing `UnboundLocalError`.
+- Two closures over the same variable share state — incrementing through one affects what the other sees.
+- Each call to the outer function creates a new, independent scope and a new closure.
 
----
-
-## Code-reading examples
+## Code-reading example
 
 ```python
 def make_counter():
@@ -59,44 +59,21 @@ print(c1())
 print(c2())
 ```
 
-**Question:** What does this output?
+### Answer
 
-**Prediction:** write your answer before checking.
-
-**Answer:**
 ```
 1
 2
 1
 ```
 
-**Why:** `c1` and `c2` are separate closures over separate `count` variables — each call to `make_counter()` creates a new scope. `c1` has its own counter; `c2` starts fresh.
+### Explanation
 
----
-
-## Coding drills
-
-- Implement `make_counter()` with `reset()` and `increment()` methods via closures
-- Write the late-binding bug, then both fixes (default arg and factory function)
-- Inspect `__closure__` and `__code__.co_freevars` on a closure you create
-
----
+Each call to `make_counter()` creates a fresh scope with its own `count` variable. `c1` and `c2` are independent closures — incrementing `c1` does not affect `c2`. Within `c1`, `nonlocal count` lets `increment` assign back to the `count` in its enclosing scope.
 
 ## Related topics
 
-- [Late binding](late_binding.md)
-- [Lambda functions](lambda_functions.md)
-- [Decorators](decorators.md)
-- [LEGB scoping](../python_internals/scoping_legb.md)
-
----
-
-## My mistakes
-
----
-
-## Review history
-
-| Date | Result | Notes |
-|---|---|---|
-| TBD | TBD | TBD |
+- Late binding
+- Lambda functions
+- Decorators
+- LEGB scoping

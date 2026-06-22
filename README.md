@@ -18,12 +18,11 @@ This repository tracks Python topics across multiple domains, with emphasis on:
 
 ## Quick Start
 
-| Step | File | Purpose |
-|---|---|---|
-| 1 | [START_HERE.md](START_HERE.md) | Orientation — file map, mastery scale, workflow |
-| 2 | [baseline_assessment/README.md](baseline_assessment/README.md) | Day 0 readiness audit — do this first |
-| 3 | [dashboard.md](dashboard.md) | Command center — priorities, interview mode, daily link |
-| 4 | [TODAY.md](TODAY.md) | Current study session |
+**First time:** read [START_HERE.md](START_HERE.md), then run the
+[baseline assessment](baseline_assessment/README.md) (60–90 min).
+
+**Every session:** open [dashboard.md](dashboard.md) → follow the
+link to [TODAY.md](TODAY.md).
 
 ---
 

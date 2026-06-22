@@ -19,17 +19,19 @@ This repository tracks Python topics across multiple domains, with emphasis on:
 ## Where Are You?
 
 **Never used this before?**
-→ [START_HERE.md](START_HERE.md) — understand the phases, then run
-the [baseline assessment](baseline_assessment/README.md) (60–90 min).
+→ [START_HERE.md](START_HERE.md) — read the phase overview, then open
+[baseline_assessment/README.md](baseline_assessment/README.md).
+Do not run `python main.py next` yet — the baseline comes first.
 
-**Assessment done, starting a study session?**
-→ `python main.py next` — refreshes everything and opens TODAY.md
+**Assessment done and goal selected?**
+→ `python main.py next` — refreshes review queue, dashboard, and TODAY.md.
+
+**Not sure where you are in the process?**
+→ `python main.py onboard` — shows remaining steps based on current state.
+→ [state.md](state.md) — raw phase, goal, and next action.
 
 **Just finished an interview?**
 → [interview_log/](interview_log/) — capture lessons, update priorities.
-
-**Not sure?**
-→ [state.md](state.md) — your current phase and next action.
 
 ---
 

@@ -6,7 +6,7 @@
 > **Phase: Calibration · Goal: Not Selected**
 > The baseline assessment has not been completed.
 > → **[baseline_assessment/README.md](baseline_assessment/README.md)**
-> *(Update this when phase or goal changes — see [state.md](state.md))*
+> *(Update when phase or goal changes — see [state.md](state.md))*
 
 ---
 
@@ -24,25 +24,12 @@
 |---|---|
 | **File** | [baseline_assessment/README.md](baseline_assessment/README.md) |
 | **Time** | 60–90 minutes |
-| **Outcome** | Skill profile · calibrated review queue · realistic priorities |
+| **Outcome** | Skill profile · calibrated priorities |
 
-After the audit, choose a goal: **Interview Campaign** · **Long-Term Mastery** · **Domain Sprint** · **Maintenance**
+After the audit, choose a goal:
+**Interview Campaign** · **Long-Term Mastery** · **Domain Sprint** · **Maintenance**
 
 → [goals/README.md](goals/README.md)
-
----
-
-## Top Priorities
-
-| # | Topic | Domain | Mastery | Freq | Priority |
-|---|---|---|---:|---|---:|
-| 1 | Built-in types | Basics | 0/10 | High | 90 |
-| 2 | `is` vs `==` | Basics | 0/10 | High | 90 |
-| 3 | Comprehensions | Basics | 0/10 | High | 90 |
-| 4 | `*args` and `**kwargs` | Basics | 0/10 | High | 90 |
-| 5 | list — internals & complexity | Data Structures | 0/10 | High | 90 |
-
-→ [Full review queue](matrix/review_queue.md)
 <!-- END:generated -->
 
 ---

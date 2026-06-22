@@ -13,30 +13,54 @@
 
 ## 30-second explanation
 
-Late binding means that closures look up the value of a variable at call time, not at the time the function was defined. When multiple closures are created in a loop over the same variable, they all share that single variable and will all read its final value when called.
+Late binding means closures look up the value of a captured variable at
+call time, not at definition time. When multiple closures close over the
+same loop variable, they all see its final value when called — because
+they all hold a reference to the same variable, not separate snapshots.
 
 ## Mental model
 
-The closure stores a pointer to the variable, not a snapshot of its value. When you call the function, it follows the pointer and reads whatever the variable holds at that moment.
+The closure stores a pointer to the variable, not a copy of its value.
+Calling the function follows the pointer and reads whatever the variable
+holds at that moment.
 
 ```python
-# The closure holds a pointer to 'i'
-# When called, it reads i's current value
-funcs = [lambda: i for i in range(5)]
+# All three lambdas point to the same 'i'
+funcs = [lambda: i for i in range(3)]
+# After the loop: i == 2
+# Every lambda follows its pointer → reads 2
 ```
 
-By the time any of these lambdas is called, the loop has finished and `i` is `4`. All five functions follow the same pointer and see the same value.
+The fix forces eager evaluation by making the current value a default
+argument, which is evaluated at definition time:
+
+```python
+funcs = [lambda i=i: i for i in range(3)]
+# Each lambda gets its own default, frozen at creation
+```
 
 ## Why interviewers ask this
 
-This is one of the most common "what does this print?" traps in Python interviews. It appears in questions involving lambdas in loops, list comprehensions with closures, and dictionary-based dispatch. Knowing the fix signals real-world Python experience.
+Late binding is one of the most commonly asked Python gotchas. It
+appears in any context where functions are created in a loop: lambdas,
+`def` inside a loop, dictionary-based dispatch, and callbacks. Knowing
+both the `i=i` fix and the `functools.partial` alternative — and being
+able to explain why they work — is a strong signal.
 
 ## Common traps
 
-- Closures capture the name, not the current value. The lookup happens at call time.
-- The loop variable is a single shared variable, not a new variable per iteration.
-- The fix using `i=i` looks like a default argument but is actually forcing eager evaluation.
-- `functools.partial` also avoids late binding because it binds argument values at creation time.
+- The trap is not specific to lambdas. A `def` inside a loop has
+  exactly the same late-binding behavior.
+- The loop variable is a single variable that gets reassigned each
+  iteration. It is not a new variable per iteration.
+- The `i=i` fix looks like it's doing nothing, but the left-hand `i`
+  creates a new local variable (the default) while the right-hand `i`
+  reads the current value of the outer variable.
+- `functools.partial` avoids late binding because it binds argument
+  values immediately at creation time — it does not create a closure
+  over a name.
+- Late binding also bites in class bodies and comprehensions that
+  reference variables from an outer scope.
 
 ## Code-reading example
 
@@ -56,7 +80,10 @@ print([f() for f in funcs])
 
 ### Explanation
 
-All three lambdas close over the same variable `i`. By the time they are called, the loop has ended and `i == 2`. Each lambda computes `2 * 2 = 4`.
+All three lambdas close over the same variable `i`. After the loop
+ends, `i` is `2`. Each lambda computes `2 * 2 = 4` when called. The
+value `i` had during earlier iterations is irrelevant — the closure
+follows the pointer to whatever `i` holds now.
 
 ### Fix
 
@@ -68,7 +95,9 @@ for i in range(3):
 print([f() for f in funcs])  # [0, 2, 4]
 ```
 
-The default argument `i=i` is evaluated immediately when the lambda is created, capturing the current value of `i` rather than a reference to the variable.
+The default argument `i=i` captures the current value of `i` at the
+moment the lambda is created. After the loop, each lambda has a
+different default and no longer depends on the outer `i`.
 
 ## Related topics
 

@@ -1,13 +1,14 @@
 # Code Reading — Medium
 
-Puzzles involving closures, late binding, decorators, and OOP traps. Aim to predict the output before revealing the answer.
+Puzzles involving closures, late binding, decorators, and OOP traps.
+Aim to predict the output before revealing the answer.
 
 ---
 
 ## Puzzle M1 — Classic late binding closure
 
 **Topic:** functional_python / closures  
-**Trap:** closures capture the *variable*, not its value at the time of creation
+**Trap:** closures capture the *variable*, not its value at creation time
 
 ```python
 functions = []
@@ -26,7 +27,9 @@ print([f() for f in functions])
 [4, 4, 4, 4, 4]
 ```
 
-All lambdas close over the variable `i`, not the value of `i` at creation time. By the time they're called, the loop has finished and `i == 4`.
+All lambdas close over the variable `i`, not the value of `i` at
+creation time. By the time they are called, the loop has finished
+and `i == 4`.
 
 **Fix — capture by default argument:**
 ```python
@@ -62,7 +65,9 @@ print([f(2) for f in functions])
 [0, 2, 4, 6, 8]
 ```
 
-`partial` *binds the value at creation time*, not the variable. This is why `partial` avoids the late binding trap that raw lambdas fall into.
+`partial` *binds the value at creation time*, not the variable. This
+is why `partial` avoids the late binding trap that raw lambdas fall
+into.
 
 </details>
 
@@ -115,7 +120,10 @@ A after
 B after
 ```
 
-Wait — re-read that. `@decorator_a` is on top, so it's applied *last* (outermost). `@decorator_b` is applied first (innermost). Application order: B then A. Call order: A's wrapper calls B's wrapper which calls `greet`.
+Wait — re-read that. `@decorator_a` is on top, so it is applied *last*
+(outermost). `@decorator_b` is applied first (innermost). Application
+order: B then A. Call order: A's wrapper runs first and calls B's
+wrapper, which calls `greet`.
 
 </details>
 
@@ -151,7 +159,8 @@ True
 True
 ```
 
-`__new__` returns the existing instance on subsequent calls, so `a` and `b` are the same object.
+`__new__` returns the existing instance on subsequent calls, so `a`
+and `b` are the same object.
 
 </details>
 
@@ -197,7 +206,8 @@ B
 D
 ```
 
-MRO for D is: D → B → C → A. Each `super()` call goes to the next in MRO, not the parent of the class where `super()` is written.
+MRO for D is: D → B → C → A. Each `super()` call goes to the next
+in MRO, not the parent of the class where `super()` is written.
 
 </details>
 
@@ -229,7 +239,8 @@ print(list(g))
 []
 ```
 
-Once a generator is exhausted, subsequent calls to `list()` on it return `[]`. The generator is not reset.
+Once a generator is exhausted, subsequent calls to `list()` on it
+return `[]`. The generator is not reset.
 
 </details>
 
@@ -238,7 +249,7 @@ Once a generator is exhausted, subsequent calls to `list()` on it return `[]`. T
 ## Puzzle M7 — `__class__` in `super()`
 
 **Topic:** oop / dunder_methods  
-**Trap:** unbound `super()` uses `__class__` cell variable — rebinding `__class__` breaks it
+**Trap:** unbound `super()` uses `__class__` cell variable
 
 ```python
 class Base:
@@ -264,7 +275,8 @@ child: base
 child: base
 ```
 
-Both work the same. `super()` with no arguments uses `__class__` (a compiler cell variable) and the first argument of the method.
+Both work the same. `super()` with no arguments uses `__class__` (a
+compiler cell variable) and the first argument of the method.
 
 </details>
 
@@ -273,7 +285,7 @@ Both work the same. `super()` with no arguments uses `__class__` (a compiler cel
 ## Puzzle M8 — Walrus in comprehension scope
 
 **Topic:** advanced_syntax / walrus  
-**Trap:** walrus operator leaks into the enclosing scope; comprehension loop variable does not
+**Trap:** walrus operator leaks into enclosing scope; loop variable does not
 
 ```python
 results = [y := x * 2 for x in range(5)]
@@ -296,7 +308,10 @@ except NameError:
 x not defined
 ```
 
-The walrus `:=` leaks the variable into the enclosing scope (`y == 8` after the comprehension). The loop variable `x` does not leak (comprehensions have their own scope for loop variables since Python 3).
+The walrus `:=` leaks the variable into the enclosing scope
+(`y == 8` after the comprehension). The loop variable `x` does not
+leak — comprehensions have their own scope for loop variables since
+Python 3.
 
 </details>
 
@@ -343,7 +358,9 @@ wrapper
 bar
 ```
 
-Without `@wraps`, `foo.__name__` is `"wrapper"` — the original name is lost. `@wraps` copies `__name__`, `__doc__`, and other attributes from the wrapped function.
+Without `@wraps`, `foo.__name__` is `"wrapper"` — the original name
+is lost. `@wraps` copies `__name__`, `__doc__`, and other attributes
+from the wrapped function.
 
 </details>
 
@@ -352,7 +369,8 @@ Without `@wraps`, `foo.__name__` is `"wrapper"` — the original name is lost. `
 ## Puzzle M10 — Iterator protocol and exhaustion
 
 **Topic:** advanced_syntax / generators  
-**Trap:** an iterator is not the same as an iterable — calling `iter()` on an iterator returns itself, and it can only be traversed once
+**Trap:** an iterator is not the same as an iterable — calling `iter()`
+on an iterator returns itself, and it can only be traversed once
 
 ```python
 nums = [1, 2, 3]
@@ -382,7 +400,9 @@ print("done")
 done
 ```
 
-The first `next()` calls consume `1` and `2`. The `for` loop resumes the iterator and consumes `3`. The second `for` loop gets nothing — the iterator is exhausted. `"again:"` never prints.
+The first `next()` calls consume `1` and `2`. The `for` loop resumes
+the iterator and consumes `3`. The second `for` loop gets nothing —
+the iterator is exhausted. `"again:"` never prints.
 
 </details>
 
@@ -391,7 +411,8 @@ The first `next()` calls consume `1` and `2`. The `for` loop resumes the iterato
 ## Puzzle M11 — `__call__` on class instances
 
 **Topic:** oop / callable_objects  
-**Trap:** instances are not callable by default — only when `__call__` is defined on the class
+**Trap:** instances are not callable by default — only when `__call__`
+is defined on the class
 
 ```python
 class Adder:
@@ -420,6 +441,8 @@ True
 Adder
 ```
 
-`callable(add5)` is `True` because `Adder` defines `__call__`. Each `op(10)` calls `Adder.__call__(op, 10)`. `__class__.__name__` is `"Adder"`.
+`callable(add5)` is `True` because `Adder` defines `__call__`. Each
+`op(10)` calls `Adder.__call__(op, 10)`. `__class__.__name__` is
+`"Adder"`.
 
 </details>

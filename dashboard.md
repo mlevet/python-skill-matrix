@@ -10,7 +10,8 @@
 
 ## Review Queue
 
-Ordered by priority (`freq_weight × (10 − mastery) × freshness_weight`). Do item 1 first.
+Ordered by priority (`freq_weight × (10 − mastery) × freshness_weight`).
+Do item 1 first.
 
 1. Generators & `yield` — unreviewed, Very High frequency
 2. Closures — 5/10, Stale (priority 45)
@@ -47,5 +48,5 @@ From [interview_log/unexpected_topics.md](interview_log/unexpected_topics.md):
 1. Pick item 1 from Review Queue above
 2. Predict output of 3 puzzles from [code_reading/](code_reading/)
 3. Explain the topic aloud for 30 seconds without notes
-4. Update mastery and freshness in [matrix/skill_matrix.md](matrix/skill_matrix.md)
+4. Update mastery and freshness in the [skill matrix](matrix/skill_matrix.md)
 5. Log any surprises or blanks in [hall_of_pain.md](hall_of_pain.md)

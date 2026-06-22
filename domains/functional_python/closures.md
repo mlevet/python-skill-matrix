@@ -13,33 +13,54 @@
 
 ## 30-second explanation
 
-A closure is a function that retains access to variables from its enclosing scope, even after that scope has finished executing. The variables are captured by reference — not by value. This distinction is the source of the late-binding trap.
+A closure is a function that retains access to variables from its
+enclosing scope, even after that scope has finished executing. The
+captured variables are called free variables. They are stored as cell
+objects inside `__closure__` and are accessed by reference, not by
+value.
 
 ## Mental model
 
-A closure is a function bundled with a backpack. The backpack holds live references — called cell objects — to variables from the outer scope. When the function runs, it reaches into the backpack to find the current value of each variable.
+Think of a closure as a function bundled with a backpack. The backpack
+holds live references — called cell objects — to variables in the outer
+scope. When the function runs, it reaches into the backpack to read the
+current value of each captured variable.
 
 ```python
 def make_multiplier(n):
     def multiply(x):
-        return x * n   # n is in the backpack
+        return x * n   # n lives in the backpack
     return multiply
 
 double = make_multiplier(2)
+triple = make_multiplier(3)
 ```
 
-`double.__closure__[0].cell_contents` is `2` — the captured value of `n`.
+`double.__closure__[0].cell_contents` is `2`. `triple`'s cell holds
+`3`. The two closures are independent — each call to `make_multiplier`
+creates a new scope and a new cell.
 
 ## Why interviewers ask this
 
-Closures are a core Python concept that most developers understand incompletely. Interviewers use them to test whether you know the difference between capturing a name and capturing a value, how `nonlocal` works, and how to diagnose and fix the late-binding trap.
+Closures are where most intermediate Python developers have gaps. The
+interviewer is testing whether you know the difference between capturing
+a name and capturing a value, when `nonlocal` is required, and whether
+two closures over the same variable share state. Getting this right
+signals you understand how Python scoping actually works.
 
 ## Common traps
 
-- Closures capture the variable, not the value. If the variable changes later, the closure sees the new value.
-- `nonlocal` is required to assign to an enclosing variable. Without it, Python treats the name as a new local, causing `UnboundLocalError`.
-- Two closures over the same variable share state — incrementing through one affects what the other sees.
-- Each call to the outer function creates a new, independent scope and a new closure.
+- Closures capture the variable, not the value. If the variable changes
+  after the closure is created, the closure sees the new value.
+- `nonlocal` is required to assign to an enclosing variable. Without
+  it, Python creates a new local of the same name and raises
+  `UnboundLocalError` when you try to read it before assignment.
+- Two closures created inside the same scope can share state through a
+  mutable variable. This is surprising when it happens by accident.
+- Each call to the outer function creates a completely independent scope
+  and a completely independent set of cell objects.
+- `__closure__` is `None` for functions with no free variables.
+  Inspecting it is a useful debugging technique.
 
 ## Code-reading example
 
@@ -69,7 +90,12 @@ print(c2())
 
 ### Explanation
 
-Each call to `make_counter()` creates a fresh scope with its own `count` variable. `c1` and `c2` are independent closures — incrementing `c1` does not affect `c2`. Within `c1`, `nonlocal count` lets `increment` assign back to the `count` in its enclosing scope.
+Each call to `make_counter()` creates a fresh scope with its own `count`
+variable. `c1` and `c2` have independent cell objects — incrementing
+`c1` has no effect on `c2`. Within `c1`, `nonlocal count` allows
+`increment` to write back to the `count` in its enclosing scope.
+Without `nonlocal`, the line `count += 1` would try to read `count`
+as a local before assigning to it, raising `UnboundLocalError`.
 
 ## Related topics
 

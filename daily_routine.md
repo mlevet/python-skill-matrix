@@ -14,7 +14,7 @@ Take the top item. Do not decide manually unless the queue is empty.
 
 ## Step 2 — Predict
 
-Open [code_reading/](code_reading/). Answer 3 puzzles without looking at the answers first.
+Open [code_reading/](code_reading/). Predict each answer before revealing the spoiler.
 
 Write your prediction before revealing the spoiler.
 
@@ -22,7 +22,8 @@ Write your prediction before revealing the spoiler.
 
 ## Step 3 — Explain aloud
 
-Pick one topic from the review queue. Explain it out loud in 30 seconds as if talking to an interviewer.
+Pick one topic from the review queue. Explain it out loud in 30 seconds
+as if talking to an interviewer.
 
 If you can't do it in 30 seconds: mastery is lower than you think.
 
@@ -44,4 +45,5 @@ In [matrix/skill_matrix.md](matrix/skill_matrix.md), update:
 - **Next Review** — set based on mastery (low mastery → sooner)
 - **Priority** — recompute if mastery changed significantly
 
-Log any mistakes in the topic file under **My mistakes**.
+Log any surprises, blanks, or wrong predictions in
+[hall_of_pain.md](../hall_of_pain.md).

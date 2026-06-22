@@ -1,13 +1,14 @@
 # Code Reading — Easy
 
-Puzzles that test basic but tricky Python behavior. Aim to answer each before revealing the spoiler.
+Puzzles that test basic but tricky Python behavior.
+Aim to answer each before revealing the spoiler.
 
 ---
 
 ## Puzzle E1 — Mutable default argument
 
 **Topic:** basics / functions  
-**Trap:** mutable default arguments are evaluated once at function definition time
+**Trap:** mutable default arguments are evaluated once at definition time
 
 ```python
 def append_to(element, target=[]):
@@ -30,7 +31,8 @@ print(append_to(3))
 [1, 2, 3]
 ```
 
-The default `target=[]` is created **once** when the function is defined. Every call that omits `target` shares the same list object.
+The default `target=[]` is created **once** when the function is
+defined. Every call that omits `target` shares the same list object.
 
 **Fix:** use `None` as the default and initialize inside the function.
 
@@ -72,7 +74,8 @@ False
 True
 ```
 
-`a` and `b` are equal in value but are two different list objects. `c` is the same object as `a`.
+`a` and `b` are equal in value but are two different list objects.
+`c` is the same object as `a`.
 
 </details>
 
@@ -81,7 +84,7 @@ True
 ## Puzzle E3 — String interning surprise
 
 **Topic:** basics / is_vs_eq  
-**Trap:** CPython interns small integers and some strings — `is` may return `True` unexpectedly
+**Trap:** CPython interns small integers — `is` may return `True` unexpectedly
 
 ```python
 x = 256
@@ -103,7 +106,9 @@ True
 False
 ```
 
-CPython caches integers from -5 to 256. `256` reuses the same object; `257` creates new ones. This is an implementation detail — never use `is` to compare values.
+CPython caches integers from -5 to 256. `256` reuses the same object;
+`257` creates new ones. This is an implementation detail — never use
+`is` to compare values.
 
 </details>
 
@@ -130,7 +135,8 @@ print(i)
 4
 ```
 
-In Python, `for` loop variables leak into the enclosing scope. `i` is `4` after the loop completes.
+In Python, `for` loop variables leak into the enclosing scope. `i` is
+`4` after the loop completes.
 
 </details>
 
@@ -139,7 +145,8 @@ In Python, `for` loop variables leak into the enclosing scope. `i` is `4` after 
 ## Puzzle E5 — Tuple with mutable element
 
 **Topic:** data_structures / tuple  
-**Trap:** tuples are immutable containers, but the objects they hold can still be mutable
+**Trap:** tuples are immutable containers, but the objects they hold
+can still be mutable
 
 ```python
 t = ([1, 2], [3, 4])
@@ -156,7 +163,8 @@ print(t)
 ([1, 2, 99], [3, 4])
 ```
 
-The tuple itself didn't change (you can't reassign `t[0]`), but the list object that `t[0]` points to was mutated.
+The tuple itself didn't change (you can't reassign `t[0]`), but the
+list object that `t[0]` points to was mutated.
 
 </details>
 
@@ -165,7 +173,7 @@ The tuple itself didn't change (you can't reassign `t[0]`), but the list object 
 ## Puzzle E6 — `==` on empty containers
 
 **Topic:** basics / types  
-**Trap:** empty containers of different types compare equal to each other... or do they?
+**Trap:** empty containers of different types compare equal... or do they?
 
 ```python
 print([] == ())
@@ -186,16 +194,19 @@ False
 True
 ```
 
-`[]` and `()` are different types — not equal. `{}` is a dict, `set()` is a set — not equal. `[]` is falsy but not equal to `False`. `0 == False` is `True` because `bool` is a subclass of `int` and `False == 0`.
+`[]` and `()` are different types — not equal. `{}` is a dict,
+`set()` is a set — not equal. `[]` is falsy but not equal to `False`.
+`0 == False` is `True` because `bool` is a subclass of `int` and
+`False == 0`.
 
 </details>
 
 ---
 
-## Puzzle E7 — `not in` vs `!= None`
+## Puzzle E7 — `nan != nan`
 
 **Topic:** basics / operators  
-**Trap:** operator precedence in boolean expressions
+**Trap:** `float('nan')` is the only Python value not equal to itself
 
 ```python
 x = None
@@ -219,7 +230,8 @@ False
 True
 ```
 
-`float('nan')` is the only Python value that is not equal to itself — this follows the IEEE 754 standard. `nan != nan` is `True`.
+`float('nan')` is the only Python value that is not equal to itself —
+this follows the IEEE 754 standard. `nan != nan` is `True`.
 
 </details>
 
@@ -252,7 +264,8 @@ print(last)
 5
 ```
 
-The starred variable always gets a `list`, even if the source is a tuple.
+The starred variable always gets a `list`, even if the source is a
+tuple.
 
 </details>
 
@@ -261,7 +274,8 @@ The starred variable always gets a `list`, even if the source is a tuple.
 ## Puzzle E9 — List multiplication with nested lists
 
 **Topic:** data_structures / list  
-**Trap:** `[[]] * n` creates `n` references to the same inner list — not `n` independent lists
+**Trap:** `[[]] * n` creates `n` references to the same inner list,
+not `n` independent lists
 
 ```python
 matrix = [[0] * 3] * 3
@@ -278,7 +292,8 @@ print(matrix)
 [[0, 99, 0], [0, 99, 0], [0, 99, 0]]
 ```
 
-`[[0] * 3] * 3` creates one inner list and three references to it. Mutating through any reference mutates all three.
+`[[0] * 3] * 3` creates one inner list and three references to it.
+Mutating through any reference mutates all three.
 
 **Fix:**
 ```python
@@ -296,7 +311,8 @@ The comprehension creates three distinct inner lists.
 ## Puzzle E10 — Function assignment
 
 **Topic:** functional_python / functions_as_objects  
-**Trap:** assigning a function to a variable creates a second reference — the original name still works independently
+**Trap:** assigning a function creates a second reference — the
+original name still works independently
 
 ```python
 def say(msg):
@@ -321,7 +337,9 @@ hello
 False
 ```
 
-`shout` still holds the original function object. Reassigning `say` to a lambda doesn't affect `shout` — they were pointing to the same object, but rebinding `say` only changes what `say` points to.
+`shout` still holds the original function object. Reassigning `say`
+to a lambda doesn't affect `shout` — they were pointing to the same
+object, but rebinding `say` only changes what `say` points to.
 
 </details>
 
@@ -354,6 +372,9 @@ print(y)
 [1, 2, 3]
 ```
 
-`a += [4, 5]` calls `a.__iadd__([4, 5])` — mutates the list in place. `b` still points to the same list, so it sees the change. `x = x + [4, 5]` creates a new list and rebinds `x` to it. `y` still points to the original unchanged list.
+`a += [4, 5]` calls `a.__iadd__([4, 5])` — mutates the list in place.
+`b` still points to the same list, so it sees the change. `x = x + [4, 5]`
+creates a new list and rebinds `x` to it. `y` still points to the
+original unchanged list.
 
 </details>

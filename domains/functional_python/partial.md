@@ -10,37 +10,47 @@
 | Interview Frequency | Medium |
 | Last Reviewed | Never |
 | Next Review | TBD |
-| Priority | TBD |
-
----
 
 ## 30-second explanation
 
-`functools.partial(func, *args, **kwargs)` returns a new callable with some arguments pre-filled. Unlike a lambda closure, `partial` binds argument values eagerly — at the time of creation, not at call time.
-
----
+`functools.partial(func, *args, **kwargs)` returns a new callable with
+some arguments pre-filled. Unlike a lambda closure, `partial` binds
+argument values eagerly — at creation time, not at call time. This
+makes it the clean alternative to the late-binding fix with `i=i`.
 
 ## Mental model
 
-`partial` is like placing an order with some details pre-filled. When you call the partial, it fills in the remaining details and calls the original function. No late binding — the pre-filled values are frozen at creation.
+`partial` is like placing an order with some details already filled in.
+When you call the partial, it adds the remaining details and forwards
+everything to the original function. The pre-filled values are frozen
+at creation — no late binding.
 
----
+```python
+def multiply(x, y):
+    return x * y
+
+double = partial(multiply, 2)   # y still required
+double(5)  # → 10
+```
 
 ## Why interviewers ask this
 
-`partial` is the canonical answer to "how do you avoid the late-binding trap?" and "how do you partially apply a function without a lambda?". It also appears in callback registration patterns.
-
----
+`partial` is the canonical answer to "how do you partially apply a
+function?" and "how do you avoid the late-binding trap without using
+default arguments?" It also appears in callback registration and
+`functools.reduce` patterns.
 
 ## Common traps
 
-- **`partial` vs lambda:** `lambda i=i: f(i)` and `partial(f, i)` both capture `i` eagerly, but `partial` is cleaner and preserves `__name__` and `__doc__` from the original.
-- **Positional vs keyword:** positional args are prepended; you can also freeze keyword args.
-- **Calling a partial with conflicting kwargs raises `TypeError`** — the pre-filled kwarg is already bound.
+- `partial` vs `lambda i=i: f(i)`: both capture values eagerly, but
+  `partial` is cleaner and inherits `__name__` and `__doc__` from the
+  original function.
+- Positional args passed to `partial` are prepended. You can also
+  freeze keyword args: `partial(func, key=val)`.
+- Calling a partial with a conflicting keyword argument raises
+  `TypeError` — the pre-filled kwarg is already bound.
 
----
-
-## Code-reading examples
+## Code-reading example
 
 ```python
 from functools import partial
@@ -56,43 +66,23 @@ print(cube(3))
 print(square.__name__)
 ```
 
-**Question:** What does this output?
+### Answer
 
-**Prediction:** write your answer before checking.
-
-**Answer:**
 ```
 16
 27
 power
 ```
 
-**Why:** `partial` binds `exp=2` and `exp=3` respectively. `__name__` is inherited from the wrapped function.
+### Explanation
 
----
-
-## Coding drills
-
-- Fix a late-binding loop using `partial` instead of a default argument
-- Create a `log_error` function from a generic `log(level, message)` using `partial`
-- Demonstrate the difference in behavior between `partial` and a lambda when the source variable changes
-
----
+`partial(power, exp=2)` freezes `exp=2`. Calling `square(4)` is
+equivalent to `power(4, exp=2)`. `cube(3)` similarly calls
+`power(3, exp=3)`. `__name__` is inherited from the original
+`power` function — not renamed to `square`.
 
 ## Related topics
 
-- [functools](functools.md)
-- [Late binding](late_binding.md)
-- [Lambda functions](lambda_functions.md)
-
----
-
-## My mistakes
-
----
-
-## Review history
-
-| Date | Result | Notes |
-|---|---|---|
-| TBD | TBD | TBD |
+- functools
+- Late binding
+- Lambda functions

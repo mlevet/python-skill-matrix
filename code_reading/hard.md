@@ -1,13 +1,15 @@
 # Code Reading — Hard
 
-Deep internals, metaclasses, descriptor protocol, and compound traps. If you can answer these cold, your Python internals knowledge is solid.
+Deep internals, metaclasses, descriptor protocol, and compound traps.
+If you can answer these cold, your Python internals knowledge is solid.
 
 ---
 
 ## Puzzle H1 — Descriptor protocol
 
 **Topic:** oop / descriptors  
-**Trap:** data descriptors (define `__set__`) take priority over instance `__dict__`
+**Trap:** data descriptors define `__set__` and take priority over
+instance `__dict__`
 
 ```python
 class Validator:
@@ -42,9 +44,15 @@ print(t.celsius)
 -100
 ```
 
-Wait — this is the *non-data* vs *data* descriptor subtlety. `Validator` defines `__set__`, making it a **data descriptor**. Data descriptors take priority over instance `__dict__` when accessed via the *attribute protocol* (`t.celsius`). BUT — directly writing to `obj.__dict__` bypasses the descriptor's `__set__`. When `__get__` is called, it looks in `obj.__dict__` directly, so it reads the bypassed value.
+`Validator` defines `__set__`, making it a data descriptor. Data
+descriptors take priority over instance `__dict__` when accessed via
+the attribute protocol (`t.celsius`). However, directly writing to
+`obj.__dict__` bypasses the descriptor's `__set__`. When `__get__` is
+called, it looks in `obj.__dict__` directly and reads the bypassed
+value.
 
-The lesson: `__dict__` manipulation can circumvent even data descriptors if the `__get__` implementation reads `__dict__` itself.
+The lesson: direct `__dict__` writes can circumvent data descriptors
+if the `__get__` implementation reads `__dict__` itself.
 
 </details>
 
@@ -53,7 +61,8 @@ The lesson: `__dict__` manipulation can circumvent even data descriptors if the 
 ## Puzzle H2 — Metaclass `__call__`
 
 **Topic:** oop / metaclasses  
-**Trap:** `type.__call__` is what triggers `__new__` and `__init__` — overriding it changes instance creation
+**Trap:** `type.__call__` triggers `__new__` and `__init__` — overriding
+it changes instance creation
 
 ```python
 class Meta(type):
@@ -84,7 +93,9 @@ __init__ x=42
 42
 ```
 
-`MyClass(42)` is a call on the *class* — which is an instance of `Meta`. So `Meta.__call__` is triggered first. Inside it, we manually call `__new__` then `__init__`.
+`MyClass(42)` is a call on the *class* — which is an instance of
+`Meta`. So `Meta.__call__` is triggered first. Inside it, we manually
+call `__new__` then `__init__`.
 
 </details>
 
@@ -93,7 +104,8 @@ __init__ x=42
 ## Puzzle H3 — Class variable vs instance variable shadowing
 
 **Topic:** oop / dunder_methods  
-**Trap:** assigning to `self.x` creates an *instance* variable that shadows the class variable
+**Trap:** assigning to `self.x` creates an instance variable that
+shadows the class variable
 
 ```python
 class Counter:
@@ -125,7 +137,10 @@ print(b.count)
 1
 ```
 
-`self.count += 1` is `self.count = self.count + 1`. The right side reads `Counter.count` (0), then the assignment creates an *instance variable* `self.count = 1`, shadowing the class variable. The class variable `Counter.count` is never modified.
+`self.count += 1` expands to `self.count = self.count + 1`. The right
+side reads `Counter.count` (0), then the assignment creates an instance
+variable `self.count = 1`, shadowing the class variable. The class
+variable `Counter.count` is never modified.
 
 </details>
 
@@ -134,7 +149,8 @@ print(b.count)
 ## Puzzle H4 — `__slots__` and inheritance
 
 **Topic:** oop / slots  
-**Trap:** `__slots__` only prevents `__dict__` creation in the class that defines it; subclasses get `__dict__` back unless they also define `__slots__`
+**Trap:** `__slots__` only prevents `__dict__` in the class that defines
+it — subclasses get `__dict__` back unless they also define `__slots__`
 
 ```python
 class Base:
@@ -160,7 +176,10 @@ True
 2
 ```
 
-`Child` doesn't define `__slots__`, so it inherits normally and gets `__dict__`. The `__slots__ = ('x',)` from `Base` still creates a slot for `x`, but `Child` can also have arbitrary attributes via its own `__dict__`.
+`Child` doesn't define `__slots__`, so it inherits normally and gets
+`__dict__`. The `__slots__ = ('x',)` from `Base` still creates a slot
+for `x`, but `Child` can also have arbitrary attributes via its own
+`__dict__`.
 
 </details>
 
@@ -169,7 +188,8 @@ True
 ## Puzzle H5 — Generator `send()` and `yield` expression
 
 **Topic:** advanced_syntax / generators  
-**Trap:** `yield` is an expression; the value sent via `.send()` becomes the result of that expression
+**Trap:** `yield` is an expression; the value sent via `.send()` becomes
+the result of that expression
 
 ```python
 def accumulator():
@@ -198,7 +218,9 @@ print(gen.send(5))
 35
 ```
 
-`next(gen)` runs until the first `yield total` (yields `0`, which we discard). Each `send(v)` resumes the generator with `value = v`, adds to total, loops back, and yields the new total.
+`next(gen)` runs until the first `yield total` (yields `0`, which we
+discard). Each `send(v)` resumes the generator with `value = v`, adds
+to total, loops back, and yields the new total.
 
 </details>
 
@@ -207,7 +229,8 @@ print(gen.send(5))
 ## Puzzle H6 — `__init_subclass__`
 
 **Topic:** oop / metaclasses  
-**Trap:** `__init_subclass__` is called on the *parent* when a *child* is defined — runs at class definition time
+**Trap:** `__init_subclass__` fires on the *parent* when a *child* is
+defined — runs at class definition time, not instantiation time
 
 ```python
 class Plugin:
@@ -235,7 +258,9 @@ print(Plugin.registry)
 ['Alpha', 'Beta']
 ```
 
-`__init_subclass__` is a hook that fires on `Plugin` whenever a subclass is defined. It's a clean way to implement auto-registration without metaclasses.
+`__init_subclass__` is a hook that fires on `Plugin` whenever a
+subclass is defined. It's a clean way to implement auto-registration
+without metaclasses.
 
 </details>
 
@@ -271,9 +296,12 @@ print(adders2[0](10))
 11
 ```
 
-First trap: `cache=[]` is shared across all calls (mutable default). After two calls, `cache` has 5 lambdas (3 + 2).
+First trap: `cache=[]` is shared across all calls (mutable default).
+After two calls, `cache` has 5 lambdas (3 + 2).
 
-Second trap: all lambdas close over `i`. After `make_adders(2)`, `i == 1`. So every lambda — including those from the first call — returns `x + 1`.
+Second trap: all lambdas close over `i`. After `make_adders(2)`,
+`i == 1`. Every lambda — including those from the first call — now
+returns `x + 1`.
 
 `adders1[0](10)` → `10 + 1 = 11`. `adders2[0](10)` → same.
 
@@ -284,7 +312,8 @@ Second trap: all lambdas close over `i`. After `make_adders(2)`, `i == 1`. So ev
 ## Puzzle H8 — `__getattr__` vs `__getattribute__`
 
 **Topic:** oop / dunder_methods, python_internals / data_model  
-**Trap:** `__getattribute__` intercepts *every* attribute access; `__getattr__` is only called when normal lookup fails
+**Trap:** `__getattribute__` intercepts *every* attribute access;
+`__getattr__` is only called when normal lookup fails
 
 ```python
 class Tricky:
@@ -316,6 +345,9 @@ missing: y
 missing: z
 ```
 
-`t.x` triggers `__getattribute__`, which intercepts and returns `99` (ignoring `self.__dict__['x'] = 10`). `t.y` and `t.z` go through `__getattribute__` → falls through to `super()` → not found → `__getattr__` is called.
+`t.x` triggers `__getattribute__`, which intercepts and returns `99`
+(ignoring `self.__dict__['x'] = 10`). `t.y` and `t.z` go through
+`__getattribute__` → falls through to `super()` → not found →
+`__getattr__` is called.
 
 </details>

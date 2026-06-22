@@ -13,35 +13,52 @@
 
 ## 30-second explanation
 
-A lambda is an anonymous function expression. It creates a function object without using `def`. Lambdas are limited to a single expression and are often used for short callbacks, sorting keys, or functional-style operations.
+A lambda is an anonymous function expression. It creates a function
+object without `def`. Lambdas are limited to a single expression and
+are often used as sort keys, callbacks, or arguments to `map`/`filter`.
+They are not special — they are function objects like any other.
 
 ## Mental model
 
-A lambda is still a function object.
+A lambda is syntactic sugar for a single-expression `def`.
 
 ```python
 square = lambda x: x * x
 ```
 
-is similar to:
+is equivalent to:
 
 ```python
 def square(x):
     return x * x
 ```
 
-The only real differences: no name, no statements, `__name__` is `"<lambda>"`.
+The only differences: no name is given at definition time (`__name__`
+is `"<lambda>"`), and only a single expression is allowed — no
+statements, no assignments, no `return` keyword.
 
 ## Why interviewers ask this
 
-They are often testing whether I understand that functions are first-class objects and whether I understand closures, late binding, and variable capture.
+Interviewers use lambdas to probe closures, late binding, and first-
+class functions all at once. "What does this loop produce?" with a
+lambda is one of the most common code-reading traps in Python interviews.
+A strong answer explains that lambdas are not magic — just function
+objects subject to the same scoping rules as `def`.
 
 ## Common traps
 
-- Lambdas are not magic; they are function objects.
-- Lambdas capture variables by name, not by value.
-- Lambdas in loops often produce late-binding surprises.
-- Lambdas can only contain expressions, not statements.
+- Lambdas capture variables by name, not by value. A lambda in a loop
+  closes over the loop variable, not its current value.
+- Lambdas cannot contain statements. `lambda x: x = 1` is a syntax
+  error. Use `def` when you need assignments, `if` statements, or
+  multiple expressions.
+- `__name__` is `"<lambda>"`, which breaks logging and stack traces.
+  Prefer `def` for anything that will appear in error messages.
+- A lambda used as a sort key captures the variable it references at
+  call time. `sorted(items, key=lambda x: x.attr)` is fine, but
+  beware of capturing a loop variable as the key.
+- Immediately-invoked lambdas are valid Python but a code smell:
+  `(lambda x: x * 2)(5)` works but is harder to read than a `def`.
 
 ## Code-reading example
 
@@ -66,7 +83,9 @@ print(funcs[2]())
 
 ### Explanation
 
-The lambda captures the name `i`, not its value at each iteration. After the loop ends, `i` is `2`, so every lambda reads the same final value.
+The lambda captures the name `i`, not its value at each iteration.
+After the loop ends, `i` is `2`, so every lambda reads the same final
+value when called.
 
 ### Fix
 
@@ -77,7 +96,9 @@ for i in range(3):
     funcs.append(lambda i=i: i)
 ```
 
-Using a default argument forces the value of `i` to be captured at the time the lambda is created.
+Using `i=i` as a default argument forces the current value of `i` to
+be captured at creation time. The default argument is evaluated
+immediately — it is not a closure over the name.
 
 ## Related topics
 

@@ -10,38 +10,39 @@
 | Interview Frequency | Medium |
 | Last Reviewed | Never |
 | Next Review | TBD |
-| Priority | TBD |
-
----
 
 ## 30-second explanation
 
-`functools` is the standard library module for higher-order function utilities. The most interview-relevant tools are `partial` (pre-fill arguments), `lru_cache` (memoization), `wraps` (preserve decorator metadata), and `reduce` (fold a sequence into a single value).
-
----
+`functools` is the standard library module for higher-order function
+utilities. The most interview-relevant tools are `partial` (pre-fill
+arguments), `lru_cache` (memoization), `wraps` (preserve decorator
+metadata), and `reduce` (fold a sequence into a single value).
 
 ## Mental model
 
-`functools` is the toolbox for working with functions as objects. If you want to transform, combine, or memoize functions, `functools` probably has what you need.
-
----
+`functools` is the toolbox for working with functions as objects. If
+you want to transform, combine, cache, or memoize functions, `functools`
+probably has what you need.
 
 ## Why interviewers ask this
 
-`functools.partial` and `lru_cache` appear frequently in both practical code and interview questions. `wraps` is expected in any decorator implementation. Knowing `reduce` vs comprehensions signals functional programming experience.
-
----
+`functools.partial` and `lru_cache` appear frequently in both practical
+code and interview questions. `wraps` is expected in any decorator
+implementation. Knowing `reduce` vs comprehensions signals functional
+programming experience.
 
 ## Common traps
 
-- **`partial` binds values eagerly** — no late-binding trap.
-- **`lru_cache` caches by argument hash** — mutable arguments (lists, dicts) raise `TypeError`.
-- **`wraps` goes on the wrapper, not the decorator** — `@wraps(func)` inside the decorator body, not outside.
-- **`reduce` reduces left to right** — `reduce(f, [a, b, c])` = `f(f(a, b), c)`.
+- `partial` binds values eagerly — no late-binding trap. This is the
+  key difference from a closure over a loop variable.
+- `lru_cache` caches by argument hash — mutable arguments (lists,
+  dicts) raise `TypeError`. Use tuples instead.
+- `@wraps(func)` goes on the wrapper inside the decorator body, not
+  on the outer decorator function itself.
+- `reduce` reduces left to right: `reduce(f, [a, b, c])` is
+  `f(f(a, b), c)`.
 
----
-
-## Code-reading examples
+## Code-reading example
 
 ```python
 from functools import reduce
@@ -50,42 +51,20 @@ result = reduce(lambda acc, x: acc + x, [1, 2, 3, 4], 0)
 print(result)
 ```
 
-**Question:** What does this output?
+### Answer
 
-**Prediction:** write your answer before checking.
-
-**Answer:**
 ```
 10
 ```
 
-**Why:** Starts with accumulator `0`. Each step: `0+1=1`, `1+2=3`, `3+3=6`, `6+4=10`.
+### Explanation
 
----
-
-## Coding drills
-
-- Use `partial` to create `double` and `triple` from a `multiply(x, y)` function
-- Cache a Fibonacci function with `lru_cache` and compare performance with/without
-- Use `reduce` to compute the product of a list
-
----
+Starts with accumulator `0`. Each step: `0+1=1`, `1+2=3`, `3+3=6`,
+`6+4=10`.
 
 ## Related topics
 
-- [partial](partial.md)
-- [lru_cache](lru_cache.md)
-- [Decorators](decorators.md)
-- [Higher-order functions](higher_order_functions.md)
-
----
-
-## My mistakes
-
----
-
-## Review history
-
-| Date | Result | Notes |
-|---|---|---|
-| TBD | TBD | TBD |
+- functools.partial
+- functools.lru_cache
+- Decorators
+- Higher-order functions

@@ -1,73 +1,60 @@
-# Dashboard
+# Python Skill Matrix Dashboard
 
-> Update this file at the start of each study session. Keep it honest — it only works if the numbers reflect reality.
-
----
-
-## Today
-
-**Date:** <!-- fill in -->  
-**Session goal:** <!-- 1 sentence -->  
-**Time available:** <!-- e.g. 20 min -->
-
----
-
-## Current state at a glance
+## Global Status
 
 | Metric | Value |
 |---|---|
-| Topics tracked | 0 / 47 |
-| Topics at confidence ≥ 3 | 0 |
-| Topics at confidence ≥ 4 | 0 |
-| Stalest topic (days) | — |
-| Highest-priority review | — |
+| Coverage | 0 / 55 topics reviewed |
+| Freshness | N/A — no topics reviewed yet |
+| Interview Readiness | 0 / 21 high-freq topics at mastery ≥ 8/10 |
 
-> Update these numbers from [matrix/skill_matrix.md](matrix/skill_matrix.md) after each session.
+> Update after each session. Mastery = confidence (0–5) × 2. Freshness: Fresh < 7 days, Medium 7–21, Stale > 21.
 
 ---
 
-## Top 5 review queue
+## Top Review Priorities
 
-> Paste the top 5 rows from [matrix/review_queue.md](matrix/review_queue.md) here for fast access.
+> Pulled from [matrix/review_queue.md](matrix/review_queue.md). Update mastery and freshness after each session.
 
-| # | Topic | Domain | Confidence | Days since review | Interview freq |
+| Priority | Topic | Domain | Mastery | Freshness | Interview Frequency |
 |---|---|---|---|---|---|
-| 1 | | | | | |
-| 2 | | | | | |
-| 3 | | | | | |
-| 4 | | | | | |
-| 5 | | | | | |
+| 1 | Closures & late binding | Functional Python | 0/10 | Never | High |
+| 2 | Lambdas | Functional Python | 0/10 | Never | High |
+| 3 | Decorators | Functional Python | 0/10 | Never | High |
+| 4 | Functions as first-class objects | Functional Python | 0/10 | Never | High |
+| 5 | Dunder / magic methods | OOP | 0/10 | Never | High |
+| 6 | Inheritance & MRO | OOP | 0/10 | Never | High |
+| 7 | LEGB scoping rules | Python Internals | 0/10 | Never | High |
+| 8 | Python data model | Python Internals | 0/10 | Never | High |
+| 9 | `is` vs `==` | Basics | 0/10 | Never | High |
+| 10 | Generators & `yield` | Advanced Syntax | 0/10 | Never | High |
 
 ---
 
-## Focus this week
+## Interview Hot Topics
 
-<!-- Pick 1–2 domains to go deep on. Don't spread thin. -->
-
-- Domain: **___**
-- Reason: <!-- e.g. lowest confidence, upcoming interview, gap identified last session -->
-
----
-
-## Code-reading drill queue
-
-> Pick one per session from [code_reading/](code_reading/).
-
-- [ ] Easy puzzle #__
-- [ ] Medium puzzle #__
+- Lambda functions
+- Functions as objects
+- Closures
+- Decorators
+- Mutability traps
+- Iterators and generators
+- MRO
+- `__call__`
+- Rare function signatures
+- Code-reading puzzles
 
 ---
 
-## Session notes
+## Recently Discovered Interview Topics
 
-<!-- Quick bullet log — what you reviewed, what surprised you, what to return to -->
-
-- 
+See [interview_log/unexpected_topics.md](interview_log/unexpected_topics.md).
 
 ---
 
-## Upcoming interviews / deadlines
+## Today's Suggested Routine
 
-| Date | Company / Context | Focus areas |
-|---|---|---|
-| | | |
+1. Review the first item in [matrix/review_queue.md](matrix/review_queue.md)
+2. Answer 3 code-reading questions from [code_reading/](code_reading/)
+3. Do 1 small coding drill from [drills/](drills/)
+4. Update mastery and freshness in [matrix/skill_matrix.md](matrix/skill_matrix.md)

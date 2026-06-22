@@ -1,160 +1,104 @@
----
-topic: Decorators
-domain: functional_python
-confidence: 0
-last_reviewed: never
-interview_freq: high
----
-
 # Decorators
 
-## Summary
+## Metadata
 
-A decorator is a callable that takes a function (or class) and returns a replacement. `@deco` above a `def` is syntactic sugar for `func = deco(func)`. Understanding decorators requires understanding closures and first-class functions.
-
----
-
-## Key concepts
-
-- `@deco` is exactly `func = deco(func)` — no magic.
-- Stacking decorators applies them bottom-up: `@A @B def f` → `f = A(B(f))`.
-- Always use `@functools.wraps(func)` inside the wrapper to preserve `__name__`, `__doc__`, `__wrapped__`.
-- Decorators with arguments require a third layer: `@repeat(3)` → `repeat(3)` returns a decorator, which is then applied.
-- Class-based decorators implement `__call__`.
+| Field | Value |
+|---|---|
+| Domain | Functional Python |
+| Mastery | 6/10 |
+| Freshness | Medium |
+| Interview Frequency | High |
+| Last Reviewed | TBD |
+| Next Review | TBD |
+| Priority | TBD |
 
 ---
 
-## Code examples
+## 30-second explanation
 
-### Minimal decorator
+A decorator is a callable that takes a function and returns a replacement. `@deco` above a `def` is syntactic sugar for `func = deco(func)`. Decorators are built on closures and first-class functions — understanding both is required to truly understand decorators.
 
-```python
-from functools import wraps
+---
 
-def log(func):
-    @wraps(func)
-    def wrapper(*args, **kwargs):
-        print(f"Calling {func.__name__}")
-        result = func(*args, **kwargs)
-        print(f"Done {func.__name__}")
-        return result
-    return wrapper
+## Mental model
 
-@log
-def add(a, b):
-    return a + b
+`@deco` is just assignment. When Python sees `@deco` above `def f`, it runs `f = deco(f)` immediately after defining `f`. The decorator replaces the function with its return value — usually a wrapper that calls the original.
 
-add(1, 2)
-# Calling add
-# Done add
-```
+---
 
-### Decorator with arguments (factory pattern)
+## Why interviewers ask this
 
-```python
-def repeat(n):
-    def decorator(func):
-        @wraps(func)
-        def wrapper(*args, **kwargs):
-            for _ in range(n):
-                result = func(*args, **kwargs)
-            return result
-        return wrapper
-    return decorator
-
-@repeat(3)
-def say(msg):
-    print(msg)
-
-say("hi")   # prints "hi" three times
-```
-
-### Stacking order
-
-```python
-@A   # applied second (outermost)
-@B   # applied first (innermost)
-def f(): ...
-
-# equivalent to:
-f = A(B(f))
-
-# Call order: A's wrapper → B's wrapper → f
-```
-
-### Class-based decorator
-
-```python
-from functools import wraps
-
-class CallCounter:
-    def __init__(self, func):
-        wraps(func)(self)
-        self.func = func
-        self.calls = 0
-
-    def __call__(self, *args, **kwargs):
-        self.calls += 1
-        return self.func(*args, **kwargs)
-
-@CallCounter
-def add(x, y):
-    return x + y
-
-add(1, 2)
-add(3, 4)
-print(add.calls)   # 2
-```
-
-### Why `@wraps` matters
-
-```python
-def bad(func):
-    def wrapper(*args, **kwargs):
-        return func(*args, **kwargs)
-    return wrapper
-
-@bad
-def original():
-    """My docstring."""
-    pass
-
-print(original.__name__)   # wrapper  ← wrong!
-print(original.__doc__)    # None     ← lost!
-```
+Decorators are among the most common advanced Python interview topics. They test closures, first-class functions, `*args/**kwargs`, and `functools.wraps` in one question. "Implement a timer decorator" is a standard coding task.
 
 ---
 
 ## Common traps
 
-- **Forgetting `@wraps`:** the wrapper's name and docstring replace the original's, breaking `help()`, logging, and introspection.
-- **Decorator order:** applied bottom-up, executed outside-in. Confuses people when logging decorators seem out of order.
-- **Decorators with args:** need three levels of nesting (`decorator_factory → decorator → wrapper`). A common mistake is using only two.
-- **Decoration happens at definition time:** side effects in the decorator body run when the module is imported, not when the function is called.
+- **`@wraps(func)` is mandatory** — without it, `__name__` and `__doc__` are replaced by the wrapper's, breaking introspection and logging.
+- **Application order is bottom-up:** `@A @B def f` → `f = A(B(f))`. The bottom decorator runs first.
+- **Execution order is outside-in:** when calling, A's wrapper executes before B's.
+- **Decorator with arguments needs three layers:** `@repeat(3)` → `repeat(3)` returns a decorator, which wraps `f`.
+- **Decoration happens at import time:** side effects in the decorator body run when the module loads.
 
 ---
 
-## Interview angle
+## Code-reading examples
 
-- "What does `@decorator` do?" → exactly `func = decorator(func)`
-- "What order do stacked decorators run in?" → bottom-up application, outermost first at call time
-- "Why use `@functools.wraps`?" → preserves `__name__`, `__doc__`, `__wrapped__` for debugging/introspection
-- "How do you write a decorator that accepts arguments?" → three-level nesting
+```python
+from functools import wraps
+
+def shout(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        result = func(*args, **kwargs)
+        return result.upper()
+    return wrapper
+
+@shout
+def greet(name):
+    return f"hello {name}"
+
+print(greet("world"))
+print(greet.__name__)
+```
+
+**Question:** What does this output?
+
+**Prediction:** write your answer before checking.
+
+**Answer:**
+```
+HELLO WORLD
+greet
+```
+
+**Why:** `greet` is replaced by `wrapper`, which calls the original and uppercases the result. `@wraps(func)` preserves `__name__` as `"greet"`.
 
 ---
 
-## Linked drill
+## Coding drills
 
-`drills/decorators.py` — all exercises
-
----
-
-## Linked code-reading puzzles
-
-- `code_reading/medium.md` — Puzzle M3 (decorator execution order)
-- `code_reading/medium.md` — Puzzle M9 (functools.wraps)
+- Implement a `@timer` decorator that prints elapsed time
+- Implement `@repeat(n)` — a decorator that calls the function `n` times
+- Stack `@shout` and `@timer` — predict and verify the output order
 
 ---
 
-## Review notes
+## Related topics
 
+- [Closures](closures.md)
+- [Functions as objects](functions_as_objects.md)
+- [functools](functools.md)
+- [Callable objects](../oop/callable_objects.md)
+
+---
+
+## My mistakes
+
+---
+
+## Review history
+
+| Date | Result | Notes |
+|---|---|---|
+| TBD | TBD | TBD |

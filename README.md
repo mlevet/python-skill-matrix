@@ -1,62 +1,75 @@
-# python-skill-matrix
+# Python Skill Matrix
 
-A personal Python knowledge-management and interview-preparation system.
+A personal Python knowledge matrix designed to maintain long-term mastery, freshness, and interview readiness.
+
+This repository tracks Python topics across multiple domains, with emphasis on:
+
+- pure Python interviews,
+- code-reading puzzles,
+- functional programming,
+- OOP internals,
+- advanced syntax,
+- Python runtime behavior,
+- knowledge freshness,
+- ADHD-friendly review workflows.
 
 ---
 
-## What this repo is
+## Goals
 
-Not a course. Not a cheat sheet. A living system to:
-
-- track what you know and how fresh it is
-- drill the exact patterns that appear in technical interviews
-- make the daily "what should I study?" decision in under 30 seconds
-- build interview-readiness that doesn't fade between sessions
+- Know what I know
+- Know what is stale
+- Know what is weak
+- Track unexpected interview questions
+- Build reusable code-reading drills
+- Maintain Python interview readiness over time
 
 ---
 
-## Navigation
+## Core files
 
-| File / Folder | Purpose |
+| File | Purpose |
 |---|---|
-| [dashboard.md](dashboard.md) | **Start here every session** — what to do today |
-| [daily_routine.md](daily_routine.md) | The 15–30 min daily workflow |
-| [roadmap.md](roadmap.md) | Long-term topic coverage goals |
-| [matrix/skill_matrix.md](matrix/skill_matrix.md) | Master table — every topic, confidence, freshness |
-| [matrix/review_queue.md](matrix/review_queue.md) | Sorted list of what to tackle next |
-| [matrix/scoring_model.md](matrix/scoring_model.md) | What the scores mean and how to update them |
-| [domains/](domains/) | Deep-dive notes per topic |
-| [code_reading/](code_reading/) | "What does this print?" puzzles by difficulty |
+| [dashboard.md](dashboard.md) | Start here — global status and top priorities |
+| [matrix/skill_matrix.md](matrix/skill_matrix.md) | Every topic with mastery, freshness, and priority |
+| [matrix/review_queue.md](matrix/review_queue.md) | Sorted queue of what to review next |
+| [matrix/scoring_model.md](matrix/scoring_model.md) | Priority formula and scoring rules |
+| [daily_routine.md](daily_routine.md) | The 5-step daily session |
+| [code_reading/](code_reading/) | Code-reading puzzles by difficulty |
+| [domains/](domains/) | Deep-dive topic notes |
 | [drills/](drills/) | Runnable Python drill files |
-| [interview_log/](interview_log/) | Notes from past/mock interviews |
-| [templates/](templates/) | Blank templates to copy when adding new content |
-| [scripts/](scripts/) | Helper scripts (optional automation) |
+| [interview_log/](interview_log/) | Notes from past and mock interviews |
+| [templates/](templates/) | Blank templates for new content |
 
 ---
 
-## Core scoring concepts
+## Method
 
-**Confidence (0–5):** self-assessed ability to explain and code the topic under interview pressure.  
-**Freshness:** days since last review — decays fast.  
-**Interview frequency:** how often the topic appears in real Python interviews.  
-**Priority:** high interview frequency × low confidence × stale = review first.
+Each topic is scored on:
 
-See [matrix/scoring_model.md](matrix/scoring_model.md) for the full rubric.
+- **Mastery** (0–10): from unknown to can explain, code, debug, and teach
+- **Freshness**: Fresh / Medium / Stale / Critical based on days since last review
+- **Interview Frequency**: Low / Medium / High / Very High
 
----
+Priority is computed as:
 
-## Interview focus areas
+```
+Priority = Interview Frequency Weight × (10 − Mastery) × Freshness Weight
+```
 
-Based on real interview experience, these domains carry the most weight:
-
-1. Functional Python — lambdas, closures, decorators, `functools`
-2. OOP internals — `__dunder__` methods, MRO, descriptors
-3. Python internals — scoping (LEGB), GC, the data model
-4. Code-reading traps — unexpected output, late binding, mutability surprises
-5. Advanced syntax — walrus, unpacking, generators
+The highest-priority topics are reviewed first.
 
 ---
 
-## Workflow in one sentence
+## Domains
 
-Open `dashboard.md`, pick the top item from the review queue, read the topic file, run the matching drill, update your confidence score, close laptop.
+| Domain | Focus |
+|---|---|
+| Functional Python | Lambdas, closures, decorators, higher-order functions |
+| OOP | Dunder methods, MRO, descriptors, metaclasses |
+| Python Internals | Scoping, mutability, GC, data model |
+| Advanced Syntax | Generators, unpacking, walrus, pattern matching |
+| Data Structures | list, dict, set internals and complexity |
+| Concurrency | asyncio, threading, multiprocessing |
+| Standard Library | collections, itertools, functools |
+| Testing & Debugging | pytest, mock, pdb |

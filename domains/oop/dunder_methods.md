@@ -1,148 +1,106 @@
----
-topic: Dunder / Magic Methods
-domain: oop
-confidence: 0
-last_reviewed: never
-interview_freq: high
----
+# Dunder Methods
 
-# Dunder / Magic Methods
+## Metadata
 
-## Summary
-
-Dunder methods (double-underscore methods like `__init__`, `__repr__`, `__add__`) are Python's protocol for operator overloading and hook points in the object lifecycle. They form the "Python data model" — the mechanism by which Python's syntax translates to method calls.
-
----
-
-## Key concepts
-
-- Called by the interpreter, not directly by user code (mostly).
-- `__repr__`: unambiguous string for developers; used by `repr()`, REPL, `[item]` in lists.
-- `__str__`: readable string for end users; used by `str()`, `print()`, `f"{}"`.
-- `__eq__`, `__lt__`, etc.: comparison operators. Defining `__eq__` also makes `__hash__` None (object becomes unhashable) unless you also define `__hash__`.
-- `__len__`, `__getitem__`, `__iter__`: sequence/container protocol.
-- `__call__`: makes an instance callable.
-- `__enter__` / `__exit__`: context manager protocol.
-- `__getattr__` vs `__getattribute__`: fallback vs intercept.
+| Field | Value |
+|---|---|
+| Domain | OOP |
+| Mastery | 0/10 |
+| Freshness | Stale |
+| Interview Frequency | High |
+| Last Reviewed | Never |
+| Next Review | TBD |
+| Priority | TBD |
 
 ---
 
-## Code examples
+## 30-second explanation
 
-### Arithmetic operators
+Dunder methods (double-underscore, e.g. `__repr__`, `__add__`, `__len__`) are hooks into Python's object protocol. They define how objects behave with operators, built-in functions, and control flow. Python calls them implicitly — `len(x)` calls `x.__len__()`, `x + y` calls `x.__add__(y)`, and so on.
 
-```python
-class Vector:
-    def __init__(self, x, y):
-        self.x, self.y = x, y
+---
 
-    def __add__(self, other):
-        return Vector(self.x + other.x, self.y + other.y)
+## Mental model
 
-    def __mul__(self, scalar):
-        return Vector(self.x * scalar, self.y * scalar)
+Python syntax is a thin layer over dunder method calls. Every operator, keyword, and built-in function has a corresponding dunder. The Python data model is a catalog of all these hooks.
 
-    def __rmul__(self, scalar):   # scalar * vector
-        return self.__mul__(scalar)
+---
 
-    def __repr__(self):
-        return f"Vector({self.x}, {self.y})"
+## Why interviewers ask this
 
-v = Vector(1, 2) + Vector(3, 4)   # calls __add__
-print(v)           # Vector(4, 6)
-print(3 * v)       # Vector(12, 18)  ← __rmul__
-```
-
-### `__repr__` vs `__str__`
-
-```python
-class Point:
-    def __repr__(self): return "Point(repr)"
-    def __str__(self):  return "Point(str)"
-
-p = Point()
-print(str(p))    # Point(str)
-print(repr(p))   # Point(repr)
-print(f"{p}")    # Point(str)   ← __str__
-print(f"{p!r}")  # Point(repr)  ← forced __repr__
-print([p])       # [Point(repr)] ← list uses __repr__
-```
-
-### Context manager
-
-```python
-class ManagedFile:
-    def __init__(self, path, mode):
-        self.path = path
-        self.mode = mode
-
-    def __enter__(self):
-        self.file = open(self.path, self.mode)
-        return self.file
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        self.file.close()
-        return False  # don't suppress exceptions
-```
-
-### `__getattr__` vs `__getattribute__`
-
-```python
-class Demo:
-    def __init__(self):
-        self.x = 1
-
-    def __getattr__(self, name):
-        # Only called when normal lookup fails
-        return f"missing: {name}"
-
-    # __getattribute__ is called for EVERY attribute access — override with care
-```
-
-### `__eq__` and hashability
-
-```python
-class MyObj:
-    def __init__(self, val):
-        self.val = val
-
-    def __eq__(self, other):
-        return self.val == other.val
-    # __hash__ is now implicitly None → unhashable
-    # To keep hashable: define __hash__ = object.__hash__ (or a custom one)
-```
+A candidate who knows dunder methods can implement rich objects from scratch. Questions range from "implement `__repr__`" to "why does defining `__eq__` break sets?". It also leads into descriptors, context managers, and the iterator protocol.
 
 ---
 
 ## Common traps
 
-- **`__str__` fallback to `__repr__`:** if only `__repr__` is defined, `str()` uses it. If only `__str__` is defined, `repr()` returns the default `<ClassName object at 0x...>`.
-- **`__eq__` kills `__hash__`:** defining `__eq__` implicitly sets `__hash__ = None`, making instances unhashable (can't be used as dict keys or in sets).
-- **`__getattr__` vs `__getattribute__`:** `__getattr__` is safe (only runs on missing attributes). `__getattribute__` runs on every access — an infinite recursion bug is easy to introduce.
-- **Reflected operators:** `a + b` tries `a.__add__(b)` first; if that returns `NotImplemented`, Python tries `b.__radd__(a)`.
+- **`__repr__` fallback:** if only `__repr__` is defined, `str()` uses it. If only `__str__` is defined, `repr()` falls back to the default `<ClassName object>`.
+- **`__eq__` kills `__hash__`:** defining `__eq__` sets `__hash__ = None` implicitly — the object becomes unhashable.
+- **Reflected operators:** `a + b` tries `a.__add__(b)` first. If it returns `NotImplemented`, Python tries `b.__radd__(a)`.
+- **`__getattr__` vs `__getattribute__`:** `__getattr__` is the fallback (missing attributes only); `__getattribute__` intercepts every access — infinite recursion risk.
 
 ---
 
-## Interview angle
+## Code-reading examples
 
-- "What's the difference between `__repr__` and `__str__`?"
-- "How do you implement operator overloading?" → `__add__`, `__mul__`, etc.
-- "Why does defining `__eq__` break hashing?"
-- "What's the context manager protocol?" → `__enter__` / `__exit__`
+```python
+class Box:
+    def __init__(self, items):
+        self.items = items
+
+    def __len__(self):
+        return len(self.items)
+
+    def __contains__(self, item):
+        return item in self.items
+
+    def __repr__(self):
+        return f"Box({self.items!r})"
+
+b = Box([1, 2, 3])
+print(len(b))
+print(2 in b)
+print(b)
+```
+
+**Question:** What does this output?
+
+**Prediction:** write your answer before checking.
+
+**Answer:**
+```
+3
+True
+Box([1, 2, 3])
+```
+
+**Why:** `len(b)` → `b.__len__()`, `2 in b` → `b.__contains__(2)`, `print(b)` → `str(b)` → falls back to `__repr__` since `__str__` is not defined.
 
 ---
 
-## Linked drill
+## Coding drills
 
-`drills/oop_internals.py` — Exercises 1, 7
-
----
-
-## Linked code-reading puzzles
-
-- `code_reading/hard.md` — Puzzle H3 (class var shadowing), H8 (`__getattr__` vs `__getattribute__`)
+- Implement a `Vector` class with `__add__`, `__mul__`, `__abs__`, `__repr__`
+- Show the `__eq__` / `__hash__` interaction: add to a set before and after defining `__eq__`
+- Implement `__enter__` and `__exit__` for a simple resource manager
 
 ---
 
-## Review notes
+## Related topics
 
+- [Callable objects](callable_objects.md)
+- [Descriptors](descriptors.md)
+- [Properties](properties.md)
+- [`__new__` vs `__init__`](new_vs_init.md)
+
+---
+
+## My mistakes
+
+---
+
+## Review history
+
+| Date | Result | Notes |
+|---|---|---|
+| TBD | TBD | TBD |

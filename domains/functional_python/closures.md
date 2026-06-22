@@ -1,57 +1,47 @@
----
-topic: Closures & Late Binding
-domain: functional_python
-confidence: 0
-last_reviewed: never
-interview_freq: high
----
+# Closures
 
-# Closures & Late Binding
+## Metadata
 
-## Summary
-
-A closure is a function that remembers variables from its enclosing scope even after that scope has finished executing. The captured variables are references — not copies — which is the source of the late-binding trap.
-
----
-
-## Key concepts
-
-- A closure is created when a nested function refers to a variable from its enclosing scope.
-- `__closure__` holds the cell objects; `cell.cell_contents` shows the captured value.
-- `nonlocal` allows writing to the enclosing variable (not just reading).
-- The captured variable is a live reference — changes to it are visible inside the closure.
+| Field | Value |
+|---|---|
+| Domain | Functional Python |
+| Mastery | 5/10 |
+| Freshness | Stale |
+| Interview Frequency | High |
+| Last Reviewed | TBD |
+| Next Review | TBD |
+| Priority | TBD |
 
 ---
 
-## Code examples
+## 30-second explanation
 
-### Basic closure
+A closure is a function that retains access to variables from its enclosing scope, even after that scope has finished executing. The variables are captured by reference — not by value. This distinction is the source of the late-binding trap.
 
-```python
-def make_multiplier(n):
-    def multiply(x):
-        return x * n   # n is captured from make_multiplier's scope
-    return multiply
+---
 
-double = make_multiplier(2)
-triple = make_multiplier(3)
-print(double(5))   # 10
-print(triple(5))   # 15
-```
+## Mental model
 
-### The late-binding trap
+Think of a closure as a function bundled with a backpack. The backpack contains cell objects — live references to variables from the outer scope. When the function runs, it reaches into the backpack to find the current value of those variables.
 
-```python
-# BROKEN: all lambdas share the same 'i' variable
-funcs = [lambda: i for i in range(5)]
-print([f() for f in funcs])   # [4, 4, 4, 4, 4]
+---
 
-# FIXED: capture value at definition time
-funcs = [lambda i=i: i for i in range(5)]
-print([f() for f in funcs])   # [0, 1, 2, 3, 4]
-```
+## Why interviewers ask this
 
-### `nonlocal` for mutation
+Closures are a Python fundamental that most developers get partially wrong. Interviewers use them to test whether you understand reference semantics, `nonlocal`, and the late-binding trap. Getting both "what is a closure" and "what is the trap" right is the mark of fluency.
+
+---
+
+## Common traps
+
+- **Capture by reference, not value:** the closure holds a live reference — if the variable changes after the closure is created, the closure sees the new value.
+- **Late binding in loops:** all closures in a loop share the same variable (see [late_binding.md](late_binding.md)).
+- **`nonlocal` required to write:** you can read an enclosing variable freely, but assigning to it requires `nonlocal` or Python treats it as a new local.
+- **`UnboundLocalError`:** any assignment to a name inside a function makes it local for the entire function body — even lines before the assignment.
+
+---
+
+## Code-reading examples
 
 ```python
 def make_counter():
@@ -62,61 +52,51 @@ def make_counter():
         return count
     return increment
 
-c = make_counter()
-print(c())  # 1
-print(c())  # 2
-print(c())  # 3
+c1 = make_counter()
+c2 = make_counter()
+print(c1())
+print(c1())
+print(c2())
 ```
 
-### Inspecting closures
+**Question:** What does this output?
 
-```python
-def outer(x):
-    def inner():
-        return x
-    return inner
+**Prediction:** write your answer before checking.
 
-f = outer(42)
-print(f.__code__.co_freevars)    # ('x',)
-print(f.__closure__[0].cell_contents)  # 42
+**Answer:**
+```
+1
+2
+1
 ```
 
----
-
-## Common traps
-
-- **Late binding:** closures over loop variables capture the variable, not its value. By the time the closure is called, the loop has ended and the variable holds its final value.
-- **Read vs write:** you can read an enclosing variable without `nonlocal`. The moment you assign to it (including `+=`), Python treats it as a local, causing `UnboundLocalError` unless `nonlocal` is declared.
-- **Shared state between calls:** closures share the same cell object — multiple closures over the same variable see the same state.
+**Why:** `c1` and `c2` are separate closures over separate `count` variables — each call to `make_counter()` creates a new scope. `c1` has its own counter; `c2` starts fresh.
 
 ---
 
-## Interview angle
+## Coding drills
 
-- "What does this code output?" → classic late-binding loop with lambdas
-- "What is a closure?" → function + captured environment (cell references)
-- "How do you fix the late-binding trap?" → default argument, `functools.partial`, or factory function
-- "What does `nonlocal` do?" → enables assignment to an enclosing (non-global) variable
-
-Key things to say:
-- "Closures capture the *variable*, not the *value* at creation time."
-- "The fix is to force eager evaluation via a default argument (`lambda i=i: i`)."
+- Implement `make_counter()` with `reset()` and `increment()` methods via closures
+- Write the late-binding bug, then both fixes (default arg and factory function)
+- Inspect `__closure__` and `__code__.co_freevars` on a closure you create
 
 ---
 
-## Linked drill
+## Related topics
 
-`drills/closures.py` — all exercises
-
----
-
-## Linked code-reading puzzles
-
-- `code_reading/medium.md` — Puzzle M1 (classic late binding)
-- `code_reading/hard.md` — Puzzle H7 (compound trap)
+- [Late binding](late_binding.md)
+- [Lambda functions](lambda_functions.md)
+- [Decorators](decorators.md)
+- [LEGB scoping](../python_internals/scoping_legb.md)
 
 ---
 
-## Review notes
+## My mistakes
 
-<!-- Things you got wrong, tricky edge cases to remember -->
+---
+
+## Review history
+
+| Date | Result | Notes |
+|---|---|---|
+| TBD | TBD | TBD |

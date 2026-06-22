@@ -1,58 +1,54 @@
-# Code Reading — [Easy | Medium | Hard] Puzzle #N
+# Code Reading Drill: Title
 
-**Topic:** which domain/topic this tests  
-**Trap:** one-line description of the gotcha  
-**Added:** YYYY-MM-DD
+## Metadata
 
----
-
-## The code
-
-```python
-# paste snippet here
-```
+| Field | Value |
+|---|---|
+| Difficulty | Easy / Medium / Hard |
+| Concepts | TBD |
+| Status | Unseen / Failed / Unsure / Passed |
+| Last Attempted | TBD |
 
 ---
 
 ## Question
 
-What does this print / return / raise?
-
-Write your answer here before reading the spoiler.
-
+```python
+# code here
 ```
-Your answer: ___
-```
+
+**What does this code output?**
+
+---
+
+## Prediction
+
+*Write your prediction here before running or reading the answer.*
 
 ---
 
 ## Answer
 
-<details>
-<summary>Click to reveal</summary>
-
 ```
-Output:
-___
+Expected output here
 ```
-
-**Why:**  
-Explanation of what happens and why.
-
-</details>
 
 ---
 
-## The trap
+## Explanation
 
-> One-sentence summary of the pattern — what assumption does this violate?
-
-**Related topic:** [link to domain file]  
-**Also appears in:** `code_reading/traps_index.md` under `[trap category]`
+Explain step by step what happens and why.
 
 ---
 
-## Follow-up questions
+## Underlying concept
 
-- How would you fix this to get the expected behavior?
-- What's the minimal change that changes the output?
+Name the concept being tested and why it produces this output.
+
+---
+
+## Variations
+
+1. What happens if you change X to Y?
+2. What is the minimal change to get a different output?
+3. How would you rewrite this to make the behavior explicit?

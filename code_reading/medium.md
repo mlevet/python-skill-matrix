@@ -346,3 +346,80 @@ bar
 Without `@wraps`, `foo.__name__` is `"wrapper"` — the original name is lost. `@wraps` copies `__name__`, `__doc__`, and other attributes from the wrapped function.
 
 </details>
+
+---
+
+## Puzzle M10 — Iterator protocol and exhaustion
+
+**Topic:** advanced_syntax / generators  
+**Trap:** an iterator is not the same as an iterable — calling `iter()` on an iterator returns itself, and it can only be traversed once
+
+```python
+nums = [1, 2, 3]
+it = iter(nums)
+
+print(next(it))
+print(next(it))
+
+for n in it:
+    print(n)
+
+for n in it:
+    print("again:", n)
+
+print("done")
+```
+
+**What does this print?**
+
+<details>
+<summary>Answer</summary>
+
+```
+1
+2
+3
+done
+```
+
+The first `next()` calls consume `1` and `2`. The `for` loop resumes the iterator and consumes `3`. The second `for` loop gets nothing — the iterator is exhausted. `"again:"` never prints.
+
+</details>
+
+---
+
+## Puzzle M11 — `__call__` on class instances
+
+**Topic:** oop / callable_objects  
+**Trap:** instances are not callable by default — only when `__call__` is defined on the class
+
+```python
+class Adder:
+    def __init__(self, n):
+        self.n = n
+
+    def __call__(self, x):
+        return x + self.n
+
+add5 = Adder(5)
+ops = [Adder(1), Adder(2), add5]
+
+print(callable(add5))
+print([op(10) for op in ops])
+print(add5.__class__.__name__)
+```
+
+**What does this print?**
+
+<details>
+<summary>Answer</summary>
+
+```
+True
+[11, 12, 15]
+Adder
+```
+
+`callable(add5)` is `True` because `Adder` defines `__call__`. Each `op(10)` calls `Adder.__call__(op, 10)`. `__class__.__name__` is `"Adder"`.
+
+</details>

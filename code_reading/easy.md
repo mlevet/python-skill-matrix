@@ -255,3 +255,105 @@ print(last)
 The starred variable always gets a `list`, even if the source is a tuple.
 
 </details>
+
+---
+
+## Puzzle E9 — List multiplication with nested lists
+
+**Topic:** data_structures / list  
+**Trap:** `[[]] * n` creates `n` references to the same inner list — not `n` independent lists
+
+```python
+matrix = [[0] * 3] * 3
+matrix[0][1] = 99
+print(matrix)
+```
+
+**What does this print?**
+
+<details>
+<summary>Answer</summary>
+
+```
+[[0, 99, 0], [0, 99, 0], [0, 99, 0]]
+```
+
+`[[0] * 3] * 3` creates one inner list and three references to it. Mutating through any reference mutates all three.
+
+**Fix:**
+```python
+matrix = [[0] * 3 for _ in range(3)]
+matrix[0][1] = 99
+print(matrix)  # [[0, 99, 0], [0, 0, 0], [0, 0, 0]]
+```
+
+The comprehension creates three distinct inner lists.
+
+</details>
+
+---
+
+## Puzzle E10 — Function assignment
+
+**Topic:** functional_python / functions_as_objects  
+**Trap:** assigning a function to a variable creates a second reference — the original name still works independently
+
+```python
+def say(msg):
+    return msg.upper()
+
+shout = say
+say = lambda msg: msg.lower()
+
+print(shout("hello"))
+print(say("hello"))
+print(shout is say)
+```
+
+**What does this print?**
+
+<details>
+<summary>Answer</summary>
+
+```
+HELLO
+hello
+False
+```
+
+`shout` still holds the original function object. Reassigning `say` to a lambda doesn't affect `shout` — they were pointing to the same object, but rebinding `say` only changes what `say` points to.
+
+</details>
+
+---
+
+## Puzzle E11 — `+=` vs `+` on lists
+
+**Topic:** data_structures / list  
+**Trap:** `+=` mutates in place; `+` creates a new object
+
+```python
+a = [1, 2, 3]
+b = a
+a += [4, 5]
+print(b)
+
+x = [1, 2, 3]
+y = x
+x = x + [4, 5]
+print(y)
+```
+
+**What does this print?**
+
+<details>
+<summary>Answer</summary>
+
+```
+[1, 2, 3, 4, 5]
+[1, 2, 3]
+```
+
+`a += [4, 5]` calls `a.__iadd__([4, 5])` — mutates the list in place. `b` still points to the same list, so it sees the change. `x = x + [4, 5]` creates a new list and rebinds `x` to it. `y` still points to the original unchanged list.
+
+</details>

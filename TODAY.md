@@ -1,5 +1,10 @@
 # Today's Session — Lambda Functions
 
+> **Note:** This file is only meaningful after the baseline assessment
+> is completed. If you haven't run it yet, go to
+> [baseline_assessment/README.md](baseline_assessment/README.md) first.
+> The session below is a pre-assessment estimate.
+
 **Date:** 2026-06-22  
 **Time:** ~30 minutes  
 **Topic:** Lambda Functions (mastery 6/10, Medium freshness)  

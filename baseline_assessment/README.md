@@ -2,11 +2,30 @@
 
 This is a self-assessment, not a study session.
 
-**Time:** 60–90 minutes  
+**Time:** 60–90 minutes
 **Goal:** Find out where you stand. Not to learn new material.
 
 Take this once before you start studying. The output is your personal
 review queue. Run it again after 4–6 weeks to measure progress.
+
+---
+
+## Why This Exists
+
+Without a baseline, you are guessing what to study. You might spend
+three sessions on a topic you already know, and miss a critical gap
+that will surface in the first interview question.
+
+This assessment exists to:
+
+- identify what you actually know vs. what you think you know,
+- identify the gaps most likely to hurt you in an interview,
+- calibrate the skill matrix so the review queue is honest,
+- generate realistic priorities instead of assumed ones.
+
+**The goal is not learning. The goal is measurement.**
+
+Study sessions come after. This comes first.
 
 ---
 

@@ -16,13 +16,20 @@ This repository tracks Python topics across multiple domains, with emphasis on:
 
 ---
 
-## Quick Start
+## Where Are You?
 
-**First time:** read [START_HERE.md](START_HERE.md), then run the
-[baseline assessment](baseline_assessment/README.md) (60–90 min).
+**Never used this before?**
+→ [START_HERE.md](START_HERE.md) — understand the phases, then run
+the [baseline assessment](baseline_assessment/README.md) (60–90 min).
 
-**Every session:** open [dashboard.md](dashboard.md) → follow the
-link to [TODAY.md](TODAY.md).
+**Assessment done, starting a study session?**
+→ [dashboard.md](dashboard.md) → [TODAY.md](TODAY.md)
+
+**Just finished an interview?**
+→ [interview_log/](interview_log/) — capture lessons, update priorities.
+
+**Not sure?**
+→ [state.md](state.md) — your current phase and next action.
 
 ---
 
@@ -30,11 +37,13 @@ link to [TODAY.md](TODAY.md).
 
 | File | Purpose |
 |---|---|
+| [state.md](state.md) | Current phase and next action — update when phase changes |
+| [START_HERE.md](START_HERE.md) | Phases, decision tree, file map — read once |
 | [dashboard.md](dashboard.md) | Command center — top priorities, interview countdown, status |
-| [START_HERE.md](START_HERE.md) | Orientation for new sessions |
-| [TODAY.md](TODAY.md) | Current study session with specific exercise references |
+| [TODAY.md](TODAY.md) | Current study session *(post-assessment only)* |
 | [hall_of_pain.md](hall_of_pain.md) | Mistakes and surprises logged for targeted review |
 | [daily_routine.md](daily_routine.md) | The 5-step daily session |
+| [docs/user_journey.md](docs/user_journey.md) | End-to-end system diagram |
 
 ---
 

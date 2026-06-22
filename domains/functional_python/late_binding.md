@@ -1,5 +1,14 @@
 # Late Binding
 
+---
+**Path:** [Functional Python](../../roadmaps/functional_python_path.md) — Step 5 of 8  
+**Prev:** [Closures](closures.md) · **Next:** [Decorators](decorators.md)  
+**Drill:** [drills/closures.py](../../drills/closures.py)  
+**Code Reading:** [M1 — Classic trap](../../code_reading/medium.md) · [M2 — partial fix](../../code_reading/medium.md)  
+**Hall of Pain:** [Lambda late binding](../../hall_of_pain.md)
+
+---
+
 ## Metadata
 
 | Field | Value |

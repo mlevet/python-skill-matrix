@@ -1,28 +1,72 @@
-# Python Skill Matrix Dashboard
+# Python Skill Matrix — Command Center
 
-**Coverage:** 12% — 7 of 57 topics reviewed  
-**Freshness:** 57% — 4 of 7 studied topics are current  
-**Interview Readiness:** 18% — 5 of 27 core topics at mastery ≥ 5/10  
-
+**Coverage:** 12% | **Freshness:** 57% | **Interview Readiness:** 18%  
 *Last updated: 2026-06-22*
+
+→ **[START_HERE.md](START_HERE.md)** — New to this repo? Start here.  
+→ **[TODAY.md](TODAY.md)** — Today's session is ready. Open and start.  
+→ **[hall_of_pain.md](hall_of_pain.md)** — 1 unresolved entry
 
 ---
 
-## Review Queue
+## Top Priorities
 
-Ordered by priority (`freq_weight × (10 − mastery) × freshness_weight`).
-Do item 1 first.
+### 1. Closures — 5/10 · Stale · priority 45
 
-1. Generators & `yield` — unreviewed, Very High frequency
-2. Closures — 5/10, Stale (priority 45)
-3. MRO — 4/10, Stale (priority 36)
-4. `__call__` — 4/10, Stale (priority 36)
-5. Default mutable arguments — unreviewed, High frequency
-6. Context managers — unreviewed, High frequency
-7. Decorators — 6/10, Medium (priority 24)
-8. `functools.partial` — unreviewed, Medium frequency
+→ [Topic](domains/functional_python/closures.md) ·
+[Drill](drills/closures.py) ·
+[Code Reading M1](code_reading/medium.md)  
+→ Related: [Late Binding](domains/functional_python/late_binding.md)
 
-Full details: [matrix/skill_matrix.md](matrix/skill_matrix.md)
+---
+
+### 2. MRO — 4/10 · Stale · priority 36
+
+→ [Topic](domains/oop/mro.md) ·
+[Drill](drills/oop_internals.py) ·
+[Code Reading M5](code_reading/medium.md)  
+→ Related: [Classes Are Objects](domains/oop/classes_are_objects.md)
+
+---
+
+### 3. `__call__` — 4/10 · Stale · priority 36
+
+→ [Topic](domains/oop/callable_objects.md) ·
+[Drill](drills/oop_internals.py) ·
+[Code Reading M11](code_reading/medium.md)  
+→ Related: [Decorators](domains/functional_python/decorators.md)
+
+---
+
+### 4. Lambda Functions — 6/10 · Medium · priority 24
+
+→ [Topic](domains/functional_python/lambda_functions.md) ·
+[Drill](drills/lambdas.py) ·
+[Code Reading M1](code_reading/medium.md)  
+→ Related: [Late Binding](domains/functional_python/late_binding.md)
+
+---
+
+### 5. Decorators — 6/10 · Medium · priority 24
+
+→ [Topic](domains/functional_python/decorators.md) ·
+[Drill](drills/decorators.py) ·
+[Code Reading M3](code_reading/medium.md)  
+→ Related: [Closures](domains/functional_python/closures.md)
+
+---
+
+## Full Review Queue
+
+→ [matrix/review_queue.md](matrix/review_queue.md)
+
+---
+
+## Learning Paths
+
+→ [Functional Python Path](roadmaps/functional_python_path.md)  
+→ [Iteration Path](roadmaps/iteration_path.md)  
+→ [OOP Internals Path](roadmaps/oop_internals_path.md)
 
 ---
 
@@ -31,22 +75,19 @@ Full details: [matrix/skill_matrix.md](matrix/skill_matrix.md)
 **Very High** — Lambdas · Closures · Decorators · Mutability · Generators  
 **High** — MRO · `__call__` · Context managers · `functools`
 
-Full ranking: [matrix/interview_frequency.md](matrix/interview_frequency.md)
+→ [Full ranking](matrix/interview_frequency.md)
 
 ---
 
 ## Recently Discovered
 
-From [interview_log/unexpected_topics.md](interview_log/unexpected_topics.md):
+→ [interview_log/unexpected_topics.md](interview_log/unexpected_topics.md)
 
-- Lambda late binding in loops — surprised by behavior in code-reading question
+- Lambda late binding in loops
 
 ---
 
-## Today's Routine
+## All Topics
 
-1. Pick item 1 from Review Queue above
-2. Predict output of 3 puzzles from [code_reading/](code_reading/)
-3. Explain the topic aloud for 30 seconds without notes
-4. Update mastery and freshness in the [skill matrix](matrix/skill_matrix.md)
-5. Log any surprises or blanks in [hall_of_pain.md](hall_of_pain.md)
+→ [matrix/skill_matrix.md](matrix/skill_matrix.md) ·
+[matrix/scoring_model.md](matrix/scoring_model.md)

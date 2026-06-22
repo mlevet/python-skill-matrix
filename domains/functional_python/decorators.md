@@ -1,5 +1,13 @@
 # Decorators
 
+---
+**Path:** [Functional Python](../../roadmaps/functional_python_path.md) — Step 6 of 8  
+**Prev:** [Late Binding](late_binding.md) · **Next:** [functools.partial](partial.md)  
+**Drill:** [drills/decorators.py](../../drills/decorators.py)  
+**Code Reading:** [M3 — Stacking order](../../code_reading/medium.md) · [M9 — @wraps](../../code_reading/medium.md)
+
+---
+
 ## Metadata
 
 | Field | Value |

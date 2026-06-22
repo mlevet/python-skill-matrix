@@ -1,5 +1,14 @@
 # Closures
 
+---
+**Path:** [Functional Python](../../roadmaps/functional_python_path.md) — Step 4 of 8  
+**Prev:** [Higher-Order Functions](higher_order_functions.md) · **Next:** [Late Binding](late_binding.md)  
+**Drill:** [drills/closures.py](../../drills/closures.py)  
+**Code Reading:** [M1 — Late binding](../../code_reading/medium.md) · [H7 — Compound trap](../../code_reading/hard.md)  
+**Hall of Pain:** [Late binding surprise](../../hall_of_pain.md)
+
+---
+
 ## Metadata
 
 | Field | Value |

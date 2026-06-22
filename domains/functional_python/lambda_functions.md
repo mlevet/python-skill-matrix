@@ -1,5 +1,14 @@
 # Lambda Functions
 
+---
+**Path:** [Functional Python](../../roadmaps/functional_python_path.md) — Step 2 of 8  
+**Prev:** [Functions as Objects](functions_as_objects.md) · **Next:** [Closures](closures.md)  
+**Drill:** [drills/lambdas.py](../../drills/lambdas.py)  
+**Code Reading:** [M1 — Late binding closure](../../code_reading/medium.md)  
+**Hall of Pain:** [Late binding in loops](../../hall_of_pain.md)
+
+---
+
 ## Metadata
 
 | Field | Value |

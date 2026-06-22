@@ -1,5 +1,13 @@
 # Functions as Objects
 
+---
+**Path:** [Functional Python](../../roadmaps/functional_python_path.md) — Step 1 of 8  
+**Next:** [Lambda Functions](lambda_functions.md)  
+**Drill:** [drills/functions_as_objects.py](../../drills/functions_as_objects.py)  
+**Code Reading:** [E10 — Function assignment](../../code_reading/easy.md)
+
+---
+
 ## Metadata
 
 | Field | Value |

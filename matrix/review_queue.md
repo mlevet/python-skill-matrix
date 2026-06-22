@@ -1,100 +1,106 @@
 # Review Queue
 
-Topics sorted by priority: high interview frequency + low confidence + stale = top.
-
-Update this after each session by re-sorting based on how scores changed.
-
----
-
-## How priority works
-
-```
-priority = freq_weight × (5 - confidence) × staleness_factor
-freq_weight: high=3, medium=2, low=1
-staleness_factor: 1 + (days_since_review / 30)
-```
-
-All topics start at confidence=0 and never reviewed, so all high-freq topics tie at maximum priority.  
-Break ties by your gut: which gap hurts most in an interview?
+Sorted by priority: `freq_weight × (10 − mastery) × freshness_weight`.
+Update mastery and freshness in [skill_matrix.md](skill_matrix.md) after
+each session. Re-sort this file when scores change.
 
 ---
 
-## Queue (initial — all unreviewed)
+## Priority 1 — Closures
 
-### Tier 1 — High frequency, not yet reviewed
+**Mastery:** 5/10 · **Freshness:** Stale · **Frequency:** High  
+**Priority score:** 45 · **Reason:** Stale + 5/10 = biggest gap in cluster
 
-| Priority | Topic | Domain | Confidence | Days Stale | Freq |
-|---|---|---|---|---|---|
-| 1 | Closures & late binding | functional_python | 0 | ∞ | high |
-| 2 | Lambdas | functional_python | 0 | ∞ | high |
-| 3 | Decorators | functional_python | 0 | ∞ | high |
-| 4 | Functions as first-class objects | functional_python | 0 | ∞ | high |
-| 5 | Dunder / magic methods | oop | 0 | ∞ | high |
-| 6 | Inheritance & MRO (C3) | oop | 0 | ∞ | high |
-| 7 | LEGB scoping rules | python_internals | 0 | ∞ | high |
-| 8 | Python data model | python_internals | 0 | ∞ | high |
-| 9 | `is` vs `==` | basics | 0 | ∞ | high |
-| 10 | Variables & scoping (LEGB) | basics | 0 | ∞ | high |
-| 11 | Built-in types & mutability | basics | 0 | ∞ | high |
-| 12 | Comprehensions | basics | 0 | ∞ | high |
-| 13 | `*args` and `**kwargs` | basics | 0 | ∞ | high |
-| 14 | `map` / `filter` / `reduce` | functional_python | 0 | ∞ | high |
-| 15 | Generators & `yield` | advanced_syntax | 0 | ∞ | high |
-| 16 | Extended unpacking | advanced_syntax | 0 | ∞ | high |
-| 17 | `@classmethod` vs `@staticmethod` | oop | 0 | ∞ | high |
-| 18 | list — internals & complexity | data_structures | 0 | ∞ | high |
-| 19 | dict — internals & ordering | data_structures | 0 | ∞ | high |
-| 20 | `collections` module | stdlib | 0 | ∞ | high |
-| 21 | `asyncio` & `await` | concurrency | 0 | ∞ | high |
-
-### Tier 2 — Medium frequency, not yet reviewed
-
-| Priority | Topic | Domain | Confidence | Days Stale | Freq |
-|---|---|---|---|---|---|
-| 22 | GC & reference counting | python_internals | 0 | ∞ | medium |
-| 23 | The GIL | python_internals | 0 | ∞ | medium |
-| 24 | Descriptors | oop | 0 | ∞ | medium |
-| 25 | `__slots__` | oop | 0 | ∞ | medium |
-| 26 | Metaclasses | oop | 0 | ∞ | medium |
-| 27 | `dataclasses` | oop | 0 | ∞ | medium |
-| 28 | `functools.partial` | functional_python | 0 | ∞ | medium |
-| 29 | `functools.lru_cache` | functional_python | 0 | ∞ | medium |
-| 30 | `itertools` essentials | functional_python | 0 | ∞ | medium |
-| 31 | Context managers | advanced_syntax | 0 | ∞ | medium |
-| 32 | Walrus operator | advanced_syntax | 0 | ∞ | medium |
-| 33 | Type hints & typing | advanced_syntax | 0 | ∞ | medium |
-| 34 | f-strings (advanced) | advanced_syntax | 0 | ∞ | medium |
-| 35 | set & frozenset | data_structures | 0 | ∞ | medium |
-| 36 | tuple — immutability traps | data_structures | 0 | ∞ | medium |
-| 37 | `collections.deque` | data_structures | 0 | ∞ | medium |
-| 38 | `collections.defaultdict` | data_structures | 0 | ∞ | medium |
-| 39 | `heapq` | data_structures | 0 | ∞ | medium |
-| 40 | Exception handling | basics | 0 | ∞ | medium |
-| 41 | `threading` basics | concurrency | 0 | ∞ | medium |
-| 42 | `multiprocessing` basics | concurrency | 0 | ∞ | medium |
-| 43 | `concurrent.futures` | concurrency | 0 | ∞ | medium |
-| 44 | `itertools` module | stdlib | 0 | ∞ | medium |
-| 45 | `functools` module | stdlib | 0 | ∞ | medium |
-| 46 | `re` (regex) | stdlib | 0 | ∞ | medium |
-| 47 | `pytest` fixtures | testing_debugging | 0 | ∞ | medium |
-| 48 | `unittest.mock` | testing_debugging | 0 | ∞ | medium |
-
-### Tier 3 — Low frequency
-
-| Priority | Topic | Domain | Confidence | Days Stale | Freq |
-|---|---|---|---|---|---|
-| 49 | Bytecode & `dis` | python_internals | 0 | ∞ | low |
-| 50 | Import system | python_internals | 0 | ∞ | low |
-| 51 | `collections.namedtuple` | data_structures | 0 | ∞ | low |
-| 52 | `pathlib` | stdlib | 0 | ∞ | low |
-| 53 | `datetime` | stdlib | 0 | ∞ | low |
-| 54 | `pdb` debugger | testing_debugging | 0 | ∞ | low |
-| 55 | Profiling | testing_debugging | 0 | ∞ | low |
+→ [Topic](../domains/functional_python/closures.md)  
+→ [Drill](../drills/closures.py)  
+→ [Code Reading M1](../code_reading/medium.md)  
+→ [Code Reading H7](../code_reading/hard.md)
 
 ---
 
-## Completed (confidence ≥ 4)
+## Priority 2 — MRO
 
-| Topic | Domain | Confidence | Last Reviewed |
-|---|---|---|---|
-| — | — | — | — |
+**Mastery:** 4/10 · **Freshness:** Stale · **Frequency:** Medium  
+**Priority score:** 36 · **Reason:** Stale + low mastery + interview staple
+
+→ [Topic](../domains/oop/mro.md)  
+→ [Drill](../drills/oop_internals.py)  
+→ [Code Reading M5](../code_reading/medium.md)
+
+---
+
+## Priority 3 — `__call__` / Callable Objects
+
+**Mastery:** 4/10 · **Freshness:** Stale · **Frequency:** Medium  
+**Priority score:** 36 · **Reason:** Stale + low mastery + enables decorators
+
+→ [Topic](../domains/oop/callable_objects.md)  
+→ [Drill](../drills/oop_internals.py)  
+→ [Code Reading M11](../code_reading/medium.md)
+
+---
+
+## Priority 4 — Lambda Functions
+
+**Mastery:** 6/10 · **Freshness:** Medium · **Frequency:** High  
+**Priority score:** 24 · **Reason:** Medium freshness — refresh before interview
+
+→ [Topic](../domains/functional_python/lambda_functions.md)  
+→ [Drill](../drills/lambdas.py)  
+→ [Code Reading M1](../code_reading/medium.md)  
+→ [Hall of Pain](../hall_of_pain.md)
+
+---
+
+## Priority 5 — Decorators
+
+**Mastery:** 6/10 · **Freshness:** Medium · **Frequency:** High  
+**Priority score:** 24 · **Reason:** Medium freshness — keep in working memory
+
+→ [Topic](../domains/functional_python/decorators.md)  
+→ [Drill](../drills/decorators.py)  
+→ [Code Reading M3](../code_reading/medium.md)  
+→ [Code Reading M9](../code_reading/medium.md)
+
+---
+
+## Priority 6 — Functions as Objects
+
+**Mastery:** 7/10 · **Freshness:** Medium · **Frequency:** High  
+**Priority score:** 18 · **Reason:** Solid but Medium — refresh alongside lambdas
+
+→ [Topic](../domains/functional_python/functions_as_objects.md)  
+→ [Drill](../drills/functions_as_objects.py)  
+→ [Code Reading E10](../code_reading/easy.md)
+
+---
+
+## Priority 7 — Generators & `yield`
+
+**Mastery:** 0/10 · **Freshness:** Stale · **Frequency:** High  
+**Priority score:** 90 (unreviewed) · **Reason:** Very High freq, never studied
+
+→ [Topic](../domains/advanced_syntax/generators.md)  
+→ [Drill](../drills/iterators_generators.py)  
+→ [Code Reading M6](../code_reading/medium.md)  
+→ [Code Reading M10](../code_reading/medium.md)
+
+---
+
+## Priority 8 — Late Binding
+
+**Mastery:** 5/10 · **Freshness:** Stale · **Frequency:** High  
+**Priority score:** 45 · **Reason:** Tightly coupled to Closures — study together
+
+→ [Topic](../domains/functional_python/late_binding.md)  
+→ [Code Reading M1](../code_reading/medium.md)  
+→ [Code Reading M2](../code_reading/medium.md)  
+→ [Hall of Pain](../hall_of_pain.md)
+
+---
+
+## Completed
+
+| Topic | Mastery | Last Reviewed |
+|---|---|---|
+| — | — | — |
